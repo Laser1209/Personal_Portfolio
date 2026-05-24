@@ -1,0 +1,17 @@
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:linear-gradient(135deg,#0d0d0d,#1a1a1a);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'Segoe UI',Arial,sans-serif}
+.game-wrapper{background:rgba(255,255,255,0.05);border-radius:20px;padding:20px;box-shadow:0 8px 32px rgba(0,0,0,0.5)}
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;color:#fff;flex-wrap:wrap;gap:10px}
+.info{display:flex;gap:15px}
+.info-item{background:rgba(0,0,0,0.5);padding:8px 16px;border-radius:8px;font-weight:bold;font-size:14px;border:1px solid rgba(255,255,255,0.1)}
+.btn{padding:10px 18px;border:none;border-radius:8px;cursor:pointer;font-weight:bold;transition:all 0.3s}
+.btn-start{background:linear-gradient(135deg,#ff4444,#cc0000);color:#fff;font-size:16px;text-shadow:1px 1px 2px rgba(0,0,0,0.5)}
+canvas{display:block;border-radius:10px}
+.overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);display:none;flex-direction:column;align-items:center;justify-content:center;z-index:100}
+.overlay.show{display:flex}
+.overlay h2{font-size:36px;margin-bottom:15px;text-shadow:2px 2px 4px rgba(0,0,0,0.8)}
+.overlay.win h2{color:#00ff88}
+.overlay.lose h2{color:#ff4444}
+.overlay p{color:#fff;font-size:20px;margin-bottom:20px}
+.controls-info{display:flex;gap:20px;flex-wrap:wrap;justify-content:center;margin-top:12px;color:rgba(255,255,255,0.6);font-size:11px}
+.controls-info span{background:rgba(255,255,255,0.1);padding:4px 10px;border-radius:4px}

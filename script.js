@@ -752,6 +752,59 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(generateArt, 500);
 });
 
+// ========== Loading Text 滚动动画 ==========
+document.addEventListener('DOMContentLoaded', () => {
+    const loadingItems = document.querySelectorAll('.loading_text_item');
+    if (!loadingItems.length) return;
+    
+    let currentIndex = 0;
+    const displayDuration = 3000;
+    const transitionDuration = 600;
+    
+    function animateNextItem() {
+        const prevItem = loadingItems[currentIndex];
+        
+        anime({
+            targets: prevItem,
+            opacity: 0,
+            translateY: -20,
+            duration: transitionDuration,
+            easing: 'easeOutCubic',
+            complete: () => {
+                prevItem.classList.remove('active');
+                currentIndex = (currentIndex + 1) % loadingItems.length;
+                const nextItem = loadingItems[currentIndex];
+                
+                nextItem.classList.add('active');
+                anime({
+                    targets: nextItem,
+                    opacity: [0, 1],
+                    translateY: [20, 0],
+                    duration: transitionDuration,
+                    easing: 'easeOutCubic',
+                    complete: () => {
+                        setTimeout(animateNextItem, displayDuration);
+                    }
+                });
+            }
+        });
+    }
+    
+    if (loadingItems[currentIndex]) {
+        loadingItems[currentIndex].classList.add('active');
+        anime({
+            targets: loadingItems[currentIndex],
+            opacity: [0, 1],
+            translateY: [20, 0],
+            duration: transitionDuration,
+            easing: 'easeOutCubic',
+            complete: () => {
+                setTimeout(animateNextItem, displayDuration);
+            }
+        });
+    }
+});
+
 function generateArt() {
     const artGroup = document.querySelector('.art_curves');
     if (!artGroup) return;
@@ -1092,4 +1145,94 @@ window.addEventListener('load', () => {
     enhanceWorkItemEffects();
     animateHeroTitle();
     animateBinaryText();
+    initContactForm();
 });
+
+// ========== 联系表单处理 ==========
+function initContactForm() {
+    const form = document.getElementById('contactForm');
+    const statusElement = document.getElementById('formStatus');
+    
+    if (!form || !statusElement) return;
+    
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        // 获取表单数据
+        const formData = new FormData(form);
+        const name = formData.get('name').trim();
+        const email = formData.get('email').trim();
+        const message = formData.get('message').trim();
+        
+        // 验证输入
+        if (!validateEmail(email)) {
+            showStatus('请输入有效的邮箱地址', 'error');
+            return;
+        }
+        
+        if (!name || !message) {
+            showStatus('请填写完整的信息', 'error');
+            return;
+        }
+        
+        // 构建邮件内容
+        const subject = encodeURIComponent(`【合作咨询】来自 ${name}`);
+        const body = encodeURIComponent(`
+姓名：${name}
+邮箱：${email}
+
+需求描述：
+${message}
+
+---
+此邮件来自个人作品集网站
+        `.trim());
+        
+        // 构建 mailto 链接
+        const mailtoLink = `mailto:etta120913@gmail.com?subject=${subject}&body=${body}`;
+        
+        // 创建临时链接并点击
+        const link = document.createElement('a');
+        link.href = mailtoLink;
+        link.target = '_blank';
+        
+        // 显示发送中状态
+        showStatus('正在打开邮件客户端...', 'loading');
+        
+        // 尝试打开邮件客户端
+        setTimeout(() => {
+            try {
+                link.click();
+                
+                // 延迟检查是否成功
+                setTimeout(() => {
+                    showStatus('邮件客户端已打开，请发送邮件', 'success');
+                    form.reset();
+                }, 1500);
+            } catch (error) {
+                showStatus('邮件发送失败，请手动发送邮件至 etta120913@gmail.com', 'error');
+                console.error('邮件发送失败:', error);
+            }
+        }, 500);
+    });
+    
+    // 邮箱验证函数
+    function validateEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+    
+    // 显示状态信息
+    function showStatus(message, type) {
+        statusElement.textContent = message;
+        statusElement.className = `form_status form_status--${type}`;
+        
+        // 3秒后自动隐藏错误和成功状态
+        if (type !== 'loading') {
+            setTimeout(() => {
+                statusElement.textContent = '';
+                statusElement.className = 'form_status';
+            }, 3000);
+        }
+    }
+}

@@ -1,0 +1,44 @@
+{
+  "id": "5093927",
+  "name": "QQ",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "1621427",
+      "name": "播放",
+      "font_class": "bofang",
+      "unicode": "e61c",
+      "unicode_decimal": 58908
+    },
+    {
+      "icon_id": "17830630",
+      "name": "搜索",
+      "font_class": "sousuo",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "25943428",
+      "name": "回到首页",
+      "font_class": "huidaoshouye",
+      "unicode": "e6a0",
+      "unicode_decimal": 59040
+    },
+    {
+      "icon_id": "36235769",
+      "name": "视频",
+      "font_class": "shipin",
+      "unicode": "e64d",
+      "unicode_decimal": 58957
+    },
+    {
+      "icon_id": "44840399",
+      "name": "视频",
+      "font_class": "shipin1",
+      "unicode": "e60d",
+      "unicode_decimal": 58893
+    }
+  ]
+}

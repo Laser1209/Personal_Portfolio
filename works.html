@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>代表作品 | Creative Developer Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="works-preview.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        :root {
+            --primary-gradient: linear-gradient(135deg, #1a1a1a 0%, #4a4a4a 100%);
+            --secondary-gradient: linear-gradient(135deg, #4a4a4a 0%, #1a1a1a 100%);
+            --accent-gradient: linear-gradient(135deg, #737373 0%, #a3a3a3 100%);
+            --text-primary: #1a1a1a;
+            --text-secondary: #525252;
+            --text-muted: #737373;
+            --background-light: #fafafa;
+            --background-dark: #1a1a1a;
+            --card-background: #ffffff;
+            --border-color: #d4d4d4;
+            --border-light: #e5e5e5;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            background: var(--background-light);
+            overflow: hidden;
+            position: relative;
+            color: var(--text-primary);
+            cursor: none;
+        }
+
+        .custom-cursor {
+            position: fixed;
+            width: 2vw;
+            height: 2vw;
+            border: 1.2px solid #ffffff;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.3s ease, opacity 0.2s ease;
+            mix-blend-mode: difference;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .custom-cursor.hover {
+            transform: scale(2);
+            background: var(--primary-gradient);
+            border-color: transparent;
+        }
+
+        @media (max-width: 768px) {
+            body { cursor: auto; }
+            .custom-cursor { display: none; }
+        }
+
+        .works-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        .works-nav {
+            width: 280px;
+            height: 100vh;
+            background: var(--background-dark);
+            color: #ffffff;
+            padding: 40px 24px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            z-index: 10;
+            flex-shrink: 0;
+        }
+
+        .works-nav-header {
+            margin-bottom: 40px;
+        }
+
+        .back-to-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #a3a3a3;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+            margin-bottom: 24px;
+        }
+
+        .back-to-home:hover {
+            color: #ffffff;
+        }
+
+        .works-nav-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .works-nav-subtitle {
+            font-size: 14px;
+            color: #a3a3a3;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .works-nav-list {
+            list-style: none;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .works-nav-item {
+            margin-bottom: 8px;
+        }
+
+        .works-nav-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            color: #a3a3a3;
+            text-decoration: none;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            font-size: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .works-nav-link::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 3px;
+            height: 100%;
+            background: #ffffff;
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .works-nav-link:hover,
+        .works-nav-link.active {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .works-nav-link:hover::before,
+        .works-nav-link.active::before {
+            transform: scaleY(1);
+        }
+
+        .works-nav-link .count {
+            font-size: 12px;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 4px 10px;
+            border-radius: 20px;
+        }
+
+        .subcategory-list {
+            list-style: none;
+            padding-left: 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+
+        .subcategory-list.expanded {
+            max-height: 200px;
+        }
+
+        .subcategory-list .works-nav-link {
+            padding: 12px 16px;
+            font-size: 14px;
+        }
+
+        .works-main {
+            flex: 1;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .category-section {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            padding: 60px 80px;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .category-section.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .category-header {
+            margin-bottom: 40px;
+        }
+
+        .category-title {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .category-description {
+            font-size: 16px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .horizontal-scroll-container {
+            flex: 1;
+            display: flex;
+            gap: 32px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding: 20px 0 40px;
+            cursor: grab;
+            scroll-behavior: smooth;
+        }
+
+        .horizontal-scroll-container:active {
+            cursor: grabbing;
+        }
+
+        .horizontal-scroll-container::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .horizontal-scroll-container::-webkit-scrollbar-track {
+            background: var(--border-light);
+            border-radius: 3px;
+        }
+
+        .horizontal-scroll-container::-webkit-scrollbar-thumb {
+            background: var(--text-muted);
+            border-radius: 3px;
+        }
+
+        .work-card {
+            flex-shrink: 0;
+            width: 340px;
+            height: 480px;
+            background: var(--card-background);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .work-card:hover {
+            transform: translateY(-12px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .work-card-image {
+            width: 100%;
+            height: 280px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .work-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .work-card:hover .work-card-image img {
+            transform: scale(1.08);
+        }
+
+        .work-card-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(26, 26, 26, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .work-card:hover .work-card-overlay {
+            opacity: 1;
+        }
+
+        .view-detail-btn {
+            padding: 14px 32px;
+            background: #ffffff;
+            color: #1a1a1a;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 14px;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .work-card:hover .view-detail-btn {
+            transform: translateY(0);
+        }
+
+        .work-card-info {
+            padding: 24px;
+        }
+
+        .work-card-info h4 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .work-card-info p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+
+        .work-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .work-tag {
+            padding: 6px 12px;
+            background: var(--border-light);
+            color: var(--text-secondary);
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .work-card-placeholder {
+            background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+        }
+
+        .work-card-placeholder-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .work-card-placeholder-content i {
+            font-size: 64px;
+            color: #4a4a4a;
+        }
+
+        .work-card-placeholder-content span {
+            font-size: 18px;
+            color: #737373;
+            font-weight: 500;
+        }
+
+        .work-card-placeholder .work-card-info {
+            background: transparent;
+        }
+
+        .work-card-placeholder .work-card-info h4,
+        .work-card-placeholder .work-card-info p {
+            color: #a3a3a3;
+        }
+
+        .work-card-placeholder .work-tag {
+            background: rgba(255, 255, 255, 0.1);
+            color: #737373;
+        }
+
+        .category-nav-arrows {
+            position: absolute;
+            bottom: 40px;
+            right: 80px;
+            display: flex;
+            gap: 16px;
+            z-index: 20;
+        }
+
+        .arrow-btn {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--card-background);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 18px;
+            color: var(--text-primary);
+        }
+
+        .arrow-btn:hover {
+            background: var(--background-dark);
+            color: #ffffff;
+            border-color: var(--background-dark);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 80px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        .scroll-indicator-line {
+            width: 60px;
+            height: 2px;
+            background: var(--border-color);
+            border-radius: 1px;
+            overflow: hidden;
+        }
+
+        .scroll-indicator-progress {
+            width: 0%;
+            height: 100%;
+            background: var(--text-muted);
+            transition: width 0.1s ease;
+        }
+
+        @media (max-width: 1024px) {
+            .works-nav {
+                width: 240px;
+            }
+            .category-section {
+                padding: 40px 40px;
+            }
+            .category-title {
+                font-size: 36px;
+            }
+            .work-card {
+                width: 300px;
+                height: 420px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .works-nav {
+                display: none;
+            }
+            .category-section {
+                padding: 30px 20px;
+            }
+            .category-title {
+                font-size: 28px;
+            }
+            .work-card {
+                width: 280px;
+                height: 400px;
+            }
+            .category-nav-arrows {
+                right: 20px;
+                bottom: 20px;
+            }
+            .scroll-indicator {
+                left: 20px;
+                bottom: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="custom-cursor"></div>
+
+    <div class="works-container">
+        <nav class="works-nav">
+            <div class="works-nav-header">
+                <a href="index.html" class="back-to-home">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>返回主页</span>
+                </a>
+                <h1 class="works-nav-title">代表作品</h1>
+                <p class="works-nav-subtitle">Selected Works</p>
+            </div>
+            <ul class="works-nav-list">
+                <li class="works-nav-item">
+                    <a href="#graphicDesign" class="works-nav-link active" data-category="graphicDesign">
+                        <span><i class="fa-solid fa-palette" style="margin-right: 12px;"></i>平面设计</span>
+                        <span class="count">8</span>
+                    </a>
+                    <ul class="subcategory-list expanded" id="graphicDesign-sub">
+                        <li><a href="#posterDesign" class="works-nav-link" data-subcategory="posterDesign">海报设计</a></li>
+                        <li><a href="#pageDesign" class="works-nav-link" data-subcategory="pageDesign">页面设计</a></li>
+                    </ul>
+                </li>
+                <li class="works-nav-item">
+                    <a href="#videoEditing" class="works-nav-link" data-category="videoEditing">
+                        <span><i class="fa-solid fa-video" style="margin-right: 12px;"></i>视频剪辑</span>
+                        <span class="count">2</span>
+                    </a>
+                    <ul class="subcategory-list" id="videoEditing-sub">
+                        <li><a href="#fastTrailers" class="works-nav-link" data-subcategory="fastTrailers">快节奏宣传片</a></li>
+                        <li><a href="#aigc" class="works-nav-link" data-subcategory="aigc">AIGC</a></li>
+                    </ul>
+                </li>
+                <li class="works-nav-item">
+                    <a href="#modeling3d" class="works-nav-link" data-category="modeling3d">
+                        <span><i class="fa-solid fa-cube" style="margin-right: 12px;"></i>三维建模</span>
+                        <span class="count">2</span>
+                    </a>
+                </li>
+                <li class="works-nav-item">
+                    <a href="#basicLogic" class="works-nav-link" data-category="basicLogic">
+                        <span><i class="fa-solid fa-code" style="margin-right: 12px;"></i>基础逻辑书写</span>
+                        <span class="count">6</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <main class="works-main">
+            <section class="category-section active" id="graphicDesign-section">
+                <div class="category-header">
+                    <h2 class="category-title">平面设计</h2>
+                    <p class="category-description">涵盖海报设计、页面设计等多种视觉传达作品，通过创意与技术的结合，实现信息的有效传递与品牌价值的塑造。</p>
+                </div>
+                <div class="horizontal-scroll-container" id="graphicDesign-works"></div>
+                <div class="scroll-indicator">
+                    <span>滚动浏览</span>
+                    <div class="scroll-indicator-line">
+                        <div class="scroll-indicator-progress" id="scroll-progress-1"></div>
+                    </div>
+                </div>
+                <div class="category-nav-arrows">
+                    <button class="arrow-btn" onclick="scrollHorizontal('graphicDesign-works', -400)">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                    <button class="arrow-btn" onclick="scrollHorizontal('graphicDesign-works', 400)">
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </section>
+
+            <section class="category-section" id="videoEditing-section">
+                <div class="category-header">
+                    <h2 class="category-title">视频剪辑</h2>
+                    <p class="category-description">快节奏宣传片与AIGC创意视频制作，通过动态影像讲述故事，传递情感与品牌理念。</p>
+                </div>
+                <div class="horizontal-scroll-container" id="videoEditing-works"></div>
+                <div class="scroll-indicator">
+                    <span>滚动浏览</span>
+                    <div class="scroll-indicator-line">
+                        <div class="scroll-indicator-progress" id="scroll-progress-2"></div>
+                    </div>
+                </div>
+                <div class="category-nav-arrows">
+                    <button class="arrow-btn" onclick="scrollHorizontal('videoEditing-works', -400)">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                    <button class="arrow-btn" onclick="scrollHorizontal('videoEditing-works', 400)">
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </section>
+
+            <section class="category-section" id="modeling3d-section">
+                <div class="category-header">
+                    <h2 class="category-title">三维建模</h2>
+                    <p class="category-description">三维场景与产品建模设计，将创意以立体化的方式呈现，提供沉浸式的视觉体验。</p>
+                </div>
+                <div class="horizontal-scroll-container" id="modeling3d-works"></div>
+                <div class="scroll-indicator">
+                    <span>滚动浏览</span>
+                    <div class="scroll-indicator-line">
+                        <div class="scroll-indicator-progress" id="scroll-progress-3"></div>
+                    </div>
+                </div>
+                <div class="category-nav-arrows">
+                    <button class="arrow-btn" onclick="scrollHorizontal('modeling3d-works', -400)">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                    <button class="arrow-btn" onclick="scrollHorizontal('modeling3d-works', 400)">
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </section>
+
+            <section class="category-section" id="basicLogic-section">
+                <div class="category-header">
+                    <h2 class="category-title">基础逻辑书写</h2>
+                    <p class="category-description">经典小游戏与逻辑实现项目，通过代码将创意思维转化为可交互的数字作品。</p>
+                </div>
+                <div class="horizontal-scroll-container" id="basicLogic-works"></div>
+                <div class="scroll-indicator">
+                    <span>滚动浏览</span>
+                    <div class="scroll-indicator-line">
+                        <div class="scroll-indicator-progress" id="scroll-progress-4"></div>
+                    </div>
+                </div>
+                <div class="category-nav-arrows">
+                    <button class="arrow-btn" onclick="scrollHorizontal('basicLogic-works', -400)">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                    <button class="arrow-btn" onclick="scrollHorizontal('basicLogic-works', 400)">
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="works-data.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            initCustomCursor();
+            initPageAnimations();
+            initCategoryNavigation();
+            initHorizontalScroll();
+            loadWorksData();
+        });
+
+        function initCustomCursor() {
+            const cursor = document.querySelector('.custom-cursor');
+            let mouseX = 0, mouseY = 0;
+            let cursorX = 0, cursorY = 0;
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+
+            function animateCursor() {
+                cursorX += (mouseX - cursorX) * 0.15;
+                cursorY += (mouseY - cursorY) * 0.15;
+                cursor.style.left = cursorX + 'px';
+                cursor.style.top = cursorY + 'px';
+                requestAnimationFrame(animateCursor);
+            }
+            animateCursor();
+
+            document.querySelectorAll('a, button, .work-card, .works-nav-link').forEach(el => {
+                el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+                el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+            });
+        }
+
+        function initPageAnimations() {
+            anime.timeline()
+                .add({
+                    targets: '.works-nav-title',
+                    opacity: [0, 1],
+                    translateY: [20, 0],
+                    duration: 800,
+                    easing: 'easeOutQuad'
+                })
+                .add({
+                    targets: '.works-nav-subtitle',
+                    opacity: [0, 1],
+                    translateY: [20, 0],
+                    duration: 800,
+                    easing: 'easeOutQuad'
+                }, '-=600')
+                .add({
+                    targets: '.works-nav-link',
+                    opacity: [0, 1],
+                    translateX: [-20, 0],
+                    delay: anime.stagger(80),
+                    duration: 600,
+                    easing: 'easeOutQuad'
+                }, '-=400')
+                .add({
+                    targets: '.category-title',
+                    opacity: [0, 1],
+                    translateY: [30, 0],
+                    duration: 800,
+                    easing: 'easeOutQuad'
+                }, '-=200')
+                .add({
+                    targets: '.category-description',
+                    opacity: [0, 1],
+                    translateY: [30, 0],
+                    duration: 800,
+                    easing: 'easeOutQuad'
+                }, '-=600')
+                .add({
+                    targets: '.work-card',
+                    opacity: [0, 1],
+                    translateY: [40, 0],
+                    delay: anime.stagger(100),
+                    duration: 600,
+                    easing: 'easeOutQuad'
+                }, '-=400');
+        }
+
+        function initCategoryNavigation() {
+            const navLinks = document.querySelectorAll('.works-nav-link[data-category]');
+            const sections = document.querySelectorAll('.category-section');
+            const subcategoryLists = document.querySelectorAll('.subcategory-list');
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const category = link.dataset.category;
+
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+
+                    const subList = link.nextElementSibling;
+                    if (subList && subList.classList.contains('subcategory-list')) {
+                        subList.classList.toggle('expanded');
+                    }
+
+                    sections.forEach(section => section.classList.remove('active'));
+                    const targetSection = document.getElementById(`${category}-section`);
+                    if (targetSection) {
+                        targetSection.classList.add('active');
+                        animateSectionContent(targetSection);
+                    }
+                });
+            });
+        }
+
+        function animateSectionContent(section) {
+            anime({
+                targets: section.querySelector('.category-title'),
+                opacity: [0, 1],
+                translateY: [30, 0],
+                duration: 600,
+                easing: 'easeOutQuad'
+            });
+            anime({
+                targets: section.querySelector('.category-description'),
+                opacity: [0, 1],
+                translateY: [30, 0],
+                duration: 600,
+                delay: 100,
+                easing: 'easeOutQuad'
+            });
+            anime({
+                targets: section.querySelectorAll('.work-card'),
+                opacity: [0, 1],
+                translateY: [40, 0],
+                delay: anime.stagger(80),
+                duration: 500,
+                easing: 'easeOutQuad'
+            });
+        }
+
+        function initHorizontalScroll() {
+            const containers = document.querySelectorAll('.horizontal-scroll-container');
+
+            containers.forEach((container, index) => {
+                container.addEventListener('wheel', (e) => {
+                    if (window.innerWidth > 768) {
+                        e.preventDefault();
+                        container.scrollLeft += e.deltaY;
+                        updateScrollProgress(container, index);
+                    }
+                }, { passive: false });
+
+                container.addEventListener('scroll', () => {
+                    updateScrollProgress(container, index);
+                });
+
+                let isDown = false;
+                let startX;
+                let scrollLeft;
+
+                container.addEventListener('mousedown', (e) => {
+                    isDown = true;
+                    container.style.cursor = 'grabbing';
+                    startX = e.pageX - container.offsetLeft;
+                    scrollLeft = container.scrollLeft;
+                });
+
+                container.addEventListener('mouseleave', () => {
+                    isDown = false;
+                    container.style.cursor = 'grab';
+                });
+
+                container.addEventListener('mouseup', () => {
+                    isDown = false;
+                    container.style.cursor = 'grab';
+                });
+
+                container.addEventListener('mousemove', (e) => {
+                    if (!isDown) return;
+                    e.preventDefault();
+                    const x = e.pageX - container.offsetLeft;
+                    const walk = (x - startX) * 2;
+                    container.scrollLeft = scrollLeft - walk;
+                    updateScrollProgress(container, index);
+                });
+            });
+        }
+
+        function updateScrollProgress(container, index) {
+            const progressBar = document.getElementById(`scroll-progress-${index + 1}`);
+            if (!progressBar) return;
+
+            const scrollWidth = container.scrollWidth - container.clientWidth;
+            const progress = (container.scrollLeft / scrollWidth) * 100;
+            progressBar.style.width = `${Math.min(progress, 100)}%`;
+        }
+
+        function scrollHorizontal(containerId, amount) {
+            const container = document.getElementById(containerId);
+            if (container) {
+                container.scrollBy({ left: amount, behavior: 'smooth' });
+            }
+        }
+
+        function loadWorksData() {
+            const graphicDesignWorks = [
+                ...WorksData.graphicDesign.categories.posterDesign.works,
+                ...WorksData.graphicDesign.categories.pageDesign.works
+            ];
+            renderWorks('graphicDesign-works', graphicDesignWorks);
+
+            const videoEditingWorks = [
+                ...WorksData.videoEditing.categories.fastTrailers.works,
+                ...WorksData.videoEditing.categories.aigc.works
+            ];
+            renderWorks('videoEditing-works', videoEditingWorks);
+
+            renderWorks('modeling3d-works', WorksData.modeling3d.works);
+            renderWorks('basicLogic-works', WorksData.basicLogic.works);
+        }
+
+        function renderWorks(containerId, works) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            container.innerHTML = '';
+
+            works.forEach((work, index) => {
+                const card = createWorkCard(work);
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(40px)';
+                container.appendChild(card);
+
+                setTimeout(() => {
+                    anime({
+                        targets: card,
+                        opacity: [0, 1],
+                        translateY: [40, 0],
+                        duration: 500,
+                        easing: 'easeOutQuad'
+                    });
+                }, index * 100);
+            });
+        }
+
+        function createWorkCard(work) {
+            const card = document.createElement('div');
+            card.className = `work-card ${work.isPlaceholder ? 'work-card-placeholder' : ''}`;
+
+            if (work.isPlaceholder) {
+                card.innerHTML = `
+                    <div class="work-card-placeholder-content">
+                        <i class="fa-solid fa-clock"></i>
+                        <span>即将上线</span>
+                    </div>
+                    <div class="work-card-info">
+                        <h4>${work.title}</h4>
+                        <p>${work.description}</p>
+                        <div class="work-tags">
+                            ${work.tags.map(tag => `<span class="work-tag">${tag}</span>`).join('')}
+                        </div>
+                    </div>
+                `;
+            } else {
+                card.innerHTML = `
+                    <div class="work-card-image">
+                        ${work.thumbnail ? `<img src="${work.thumbnail}" alt="${work.title}" onerror="this.parentElement.innerHTML='<div class=\\'work-card-no-image\\'>暂无图片</div>'">` : '<div class="work-card-no-image">暂无图片</div>'}
+                        <div class="work-card-overlay">
+                            <span class="view-detail-btn">查看详情</span>
+                        </div>
+                    </div>
+                    <div class="work-card-info">
+                        <h4>${work.title}</h4>
+                        <p>${work.description}</p>
+                        <div class="work-tags">
+                            ${work.tags.map(tag => `<span class="work-tag">${tag}</span>`).join('')}
+                        </div>
+                    </div>
+                `;
+
+                card.addEventListener('click', () => {
+                    if (work.externalLink) {
+                        window.open(work.externalLink, '_blank');
+                    } else if (work.detailPage) {
+                        window.location.href = work.detailPage;
+                    }
+                });
+            }
+
+            return card;
+        }
+    </script>
+</body>
+
+</html>

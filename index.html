@@ -5,8 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Creative Developer | Personal Portfolio</title>
+    <link rel="icon" href="./favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="./favicon.png" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="works-preview.css">
 
     <style>
         * {
@@ -53,29 +57,51 @@
         /* 自定义鼠标指针基础样式 */
         .custom-cursor {
             position: fixed;
-            width: 2vw;
-            height: 2vw;
-            border: 1.2px solid #ffffff;
+            width: 2.2vw;
+            height: 2.2vw;
+            border: 2px solid #000000;
             border-radius: 50%;
             pointer-events: none;
             z-index: 50;
-            transition: transform 0.3s ease, opacity 0.2s ease, background 0.3s ease;
+            transition: transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.15s ease, background 0.2s ease, border-color 0.2s ease;
             mix-blend-mode: difference;
             background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.3);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .custom-cursor::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 6px;
+            height: 6px;
+            background: #000000;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: difference;
+            box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
         }
 
         /* 鼠标悬停在可交互元素上的样式 */
         .custom-cursor.hover {
-            transform: scale(1.8);
-            background: var(--primary-gradient);
-            border-color: transparent;
-            box-shadow: 0 0 20px rgba(102, 126, 234, 0.8);
+            transform: scale(2);
+            border-color: #000000;
+            background: rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2), inset 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .custom-cursor.hover::after {
+            transform: translate(-50%, -50%) scale(1.5);
         }
 
         @media (max-width: 768px) {
             body {
                 cursor: auto;
             }
+
             .custom-cursor {
                 display: none;
             }
@@ -100,7 +126,14 @@
                 <div class="logo">
                     <img src="./img/Etta.png" alt="Etta" srcset="" style="width: 2vw;">
                 </div>
-                <div class="loading_text">deploying... not broken<br>loading... this might take a bit</div>
+                <div class="loading_text_container">
+                    <div class="loading_text_item active">Deploying Works — Not Broken</div>
+                    <div class="loading_text_item">Loading Portfolio — Works Updating</div>
+                    <div class="loading_text_item">QQ Music Interface — Page Design</div>
+                    <div class="loading_text_item">Snake Game — Basic Logic</div>
+                    <div class="loading_text_item">Graphic Design — Poster Series</div>
+                    <div class="loading_text_item">Mini Games Collection — Interactive</div>
+                </div>
             </div>
             <div class="navbar_middle">
                 <a href="#about">About</a>
@@ -108,7 +141,8 @@
                 <a href="#contact">Contact</a>
             </div>
             <div class="navbar_right">
-                <a href="#" class="social_icon"><i class="fa-brands fa-weixin fa-lg"></i></a>
+                <a href="https://github.com/Laser1209/Self-Taught-Code-Collection.git" target="_blank"
+                    class="social_icon"><i class="fa-brands fa-github fa-lg"></i></a>
                 <div class="personal_info">
                     <p>Coding globally from China.</p>
                     <p>Available for freelance work → <span class="hire_me" onclick="Towechat()">Hire me</span></p>
@@ -136,49 +170,446 @@
 
         <div class="binary_line">
             <span class="binary-text">
-                <span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span>
-                <span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span>
-                <span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span>
-                <span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span>
-                <span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span>
-                <span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span>
-                <span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span>
-                <span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span>
-                <span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span>
-                <span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span>
-                <span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span>
-                <span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span>
-                <span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span>
-                <span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span>
-                <span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span>
-                <span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span>
-                <span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span>
-                <span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span>
+                <span class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span>
+                <span class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span>
+                <span class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span>
+                <span class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span>
+                <span class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span>
+                <span class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">1</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span>
+                <span class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">1</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">1</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span>
+                <span class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span>
+                <span class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">1</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span>
+                <span class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">1</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span>
+                <span class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span>
+                <span class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">1</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span>
+                <span class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span>
+                <span class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span>
+                <span class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span>
+                <span class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">1</span>
+                <span class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span>
+                <span class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span>
 
-                <span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span>
-                <span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span>
-                <span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span>
-                <span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span>
-                <span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span>
-                <span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span>
-                <span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span>
-                <span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span>
-                <span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span>
-                <span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span>
-                <span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span>
-                <span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span>
-                <span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span>
-                <span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span>
-                <span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span>
-                <span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span>
-                <span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span>
-                <span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">0</span> <span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">1</span><span class="binary-char">1</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">0</span><span class="binary-char">1</span>
+                <span class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span>
+                <span class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span>
+                <span class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span>
+                <span class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span>
+                <span class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span>
+                <span class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">1</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span>
+                <span class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">1</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">1</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span>
+                <span class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span>
+                <span class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">1</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span>
+                <span class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">1</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span>
+                <span class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span>
+                <span class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">1</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span>
+                <span class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span>
+                <span class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span>
+                <span class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span>
+                <span class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">1</span>
+                <span class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span>
+                <span class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">0</span> <span
+                    class="binary-char">1</span><span class="binary-char">0</span><span
+                    class="binary-char">1</span><span class="binary-char">1</span><span
+                    class="binary-char">0</span><span class="binary-char">0</span><span
+                    class="binary-char">0</span><span class="binary-char">1</span>
             </span>
         </div>
 
         <div class="hero_title">
             <h1>
-                <span class="hero-word">Creative</span> <span class="separator">+</span> <span class="hero-word">Developer</span>
+                <span class="hero-word">Creative</span> <span class="separator">+</span> <span
+                    class="hero-word">Developer</span>
             </h1>
         </div>
 
@@ -187,395 +618,79 @@
                 <div class="about-me wrap" id="about">
                     <h2 class="about-me__title">关于我</h2>
                     <div class="about-me__content">
-                        一名深耕前端领域5年的创意开发者，专注于极简主义设计与交互体验落地。擅长用黑白曲线线条构建兼具功能性与美感的产品，拒绝冗余设计，追求"少即是多"的创作理念。<br>
-                        服务过电商、文创、科技类客户，核心能力覆盖前端开发、UI/UX设计与创意编码，始终以用户体验为核心，让代码与设计共生。
-                    </div>
+                        
                 </div>
 
                 <!-- 代表作品模块 -->
                 <div class="my_works_section wrap work_hight" id="work">
                     <div class="section_title">代表作品</div>
-                    <div class="works_grid">
-                        <div class="work_item" data-work-id="1">
-                            <div class="work_placeholder">
-                                <img src="./img/Restyled Page Minimalist CC Brand Website.png" alt="" style="width: 100%; height: 100%; object-fit: cover;">
+
+                    <div class="works-category-preview">
+                        <div class="category-preview-card" onclick="window.location.href='works.html#graphicDesign'">
+                            <div class="preview-icon">
+                                <i class="fa-solid fa-palette"></i>
                             </div>
-                            <div class="work_info">
-                                <span class="work_category">品牌官网</span>
-                                <span class="work_name">极简文创品牌官网重构</span>
+                            <div class="preview-info">
+                                <h3>平面设计</h3>
+                                <p>海报设计 / 页面设计</p>
+                                <span class="preview-count">8 个作品</span>
                             </div>
-                        </div>
-                        <div class="work_item" data-work-id="2">
-                            <div class="work_placeholder">
-                                <img src="./img/Dynamic Data Viz Dashboard Page.png" alt="" style="width: 100%; height: 100%; object-fit: cover;">
-                            </div>
-                            <div class="work_info">
-                                <span class="work_category">交互设计</span>
-                                <span class="work_name">数据可视化动态看板</span>
+                            <div class="preview-arrow">
+                                <i class="fa-solid fa-arrow-right"></i>
                             </div>
                         </div>
-                        <div class="work_item" data-work-id="3">
-                            <div class="work_placeholder">
-                                <img src="./img/function art gen.png" alt="" style="width: 100%; height: 100%; object-fit: cover;">
+
+                        <div class="category-preview-card" onclick="window.location.href='works.html#videoEditing'">
+                            <div class="preview-icon">
+                                <i class="fa-solid fa-video"></i>
                             </div>
-                            <div class="work_info">
-                                <span class="work_category">创意编码</span>
-                                <span class="work_name">动态曲线艺术生成器</span>
+                            <div class="preview-info">
+                                <h3>视频剪辑</h3>
+                                <p>快节奏宣传片 / AIGC</p>
+                                <span class="preview-count">2 个作品</span>
                             </div>
-                        </div>
-                        <div class="work_item" data-work-id="4">
-                            <div class="work_placeholder">
-                                <div class="placeholder-content">
-                                    <i class="fa-solid fa-mobile-screen"></i>
-                                    <span>Minimal Todo App</span>
-                                </div>
-                            </div>
-                            <div class="work_info">
-                                <span class="work_category">移动端UI</span>
-                                <span class="work_name">极简待办App设计</span>
+                            <div class="preview-arrow">
+                                <i class="fa-solid fa-arrow-right"></i>
                             </div>
                         </div>
+
+                        <div class="category-preview-card" onclick="window.location.href='works.html#modeling3d'">
+                            <div class="preview-icon">
+                                <i class="fa-solid fa-cube"></i>
+                            </div>
+                            <div class="preview-info">
+                                <h3>三维建模</h3>
+                                <p>场景建模 / 产品展示</p>
+                                <span class="preview-count">2 个作品</span>
+                            </div>
+                            <div class="preview-arrow">
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </div>
+                        </div>
+
+                        <div class="category-preview-card" onclick="window.location.href='works.html#basicLogic'">
+                            <div class="preview-icon">
+                                <i class="fa-solid fa-code"></i>
+                            </div>
+                            <div class="preview-info">
+                                <h3>基础逻辑书写</h3>
+                                <p>小游戏开发 / 逻辑实现</p>
+                                <span class="preview-count">6 个作品</span>
+                            </div>
+                            <div class="preview-arrow">
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="view-all-works">
+                        <a href="works.html" class="view-all-btn">
+                            <span>查看全部作品</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
                     </div>
                 </div>
 
-                <!-- 作品详情遮罩层 -->
-                <div id="work-detail-overlay">
-                    <div id="rectangles-container"></div>
-                    <div id="work-loading-container">
-                        <div id="work-loading-text">loading project</div>
-                        <div id="work-progress-bar-container">
-                            <div id="work-progress-bar"></div>
-                        </div>
-                    </div>
-                    
-                    <!-- 作品详情内容 - 品牌官网 -->
-                    <div id="work-detail-content" class="detail-content" data-work="1">
-                        <div class="project_global_nav">
-                            <div class="project_back_btn" onclick="closeWorkDetail()">← Back</div>
-                            <div class="project_nav_title">Brand Website Redesign</div>
-                            <div class="project_nav_empty"></div>
-                        </div>
-                        <div class="project_scroll_wrap">
-                            <div class="brand_hero_section">
-                                <div class="brand_hero_content">
-                                    <h1 class="brand_hero_title">Minimalist Brand Experience</h1>
-                                    <p class="brand_hero_subtitle">Reimagining digital presence through refined aesthetics</p>
-                                    <div class="brand_hero_tags">
-                                        <span class="brand_tag">UI/UX Design</span>
-                                        <span class="brand_tag">Frontend Development</span>
-                                        <span class="brand_tag">Brand Identity</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="brand_content_section">
-                                <div class="brand_overview">
-                                    <div class="brand_overview_item">
-                                        <span class="brand_overview_label">Client</span>
-                                        <span class="brand_overview_value">Creative Studio CC</span>
-                                    </div>
-                                    <div class="brand_overview_item">
-                                        <span class="brand_overview_label">Timeline</span>
-                                        <span class="brand_overview_value">8 Weeks</span>
-                                    </div>
-                                    <div class="brand_overview_item">
-                                        <span class="brand_overview_label">Role</span>
-                                        <span class="brand_overview_value">Lead Developer</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="brand_features_section">
-                                <h2 class="brand_section_title">Key Features</h2>
-                                <div class="brand_features_grid">
-                                    <div class="brand_feature_card">
-                                        <div class="feature_icon"><i class="fa-solid fa-layer-group"></i></div>
-                                        <h3>Modular Design System</h3>
-                                        <p>Reusable components ensuring consistency across all pages</p>
-                                    </div>
-                                    <div class="brand_feature_card">
-                                        <div class="feature_icon"><i class="fa-solid fa-bolt"></i></div>
-                                        <h3>Performance Optimized</h3>
-                                        <p>Lightning-fast load times with optimized assets and lazy loading</p>
-                                    </div>
-                                    <div class="brand_feature_card">
-                                        <div class="feature_icon"><i class="fa-solid fa-mobile-screen-button"></i></div>
-                                        <h3>Fully Responsive</h3>
-                                        <p>Seamless experience across all devices from mobile to desktop</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="brand_tech_section">
-                                <h2 class="brand_section_title">Technologies Used</h2>
-                                <div class="brand_tech_stack">
-                                    <span class="tech_item">HTML5</span>
-                                    <span class="tech_item">CSS3</span>
-                                    <span class="tech_item">JavaScript</span>
-                                    <span class="tech_item">GSAP</span>
-                                    <span class="tech_item">Figma</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 作品详情内容 - 数据看板 -->
-                    <div id="work-detail-content" class="detail-content" data-work="2">
-                        <div class="project_global_nav">
-                            <div class="project_back_btn" onclick="closeWorkDetail()">← Back</div>
-                            <div class="project_nav_title">Data Visualization Dashboard</div>
-                            <div class="project_nav_empty"></div>
-                        </div>
-                        <div class="project_scroll_wrap dashboard_wrap">
-                            <div class="dashboard_hero">
-                                <h1 class="dashboard_title">Dynamic Analytics Platform</h1>
-                                <p class="dashboard_subtitle">Real-time data visualization with interactive charts</p>
-                            </div>
-                            <div class="dashboard_metrics">
-                                <div class="dashboard_metric_card metric-1">
-                                    <div class="metric_label">Total Users</div>
-                                    <div class="metric_value">24,856</div>
-                                    <div class="metric_change positive">+12.5%</div>
-                                </div>
-                                <div class="dashboard_metric_card metric-2">
-                                    <div class="metric_label">Revenue</div>
-                                    <div class="metric_value">$186,420</div>
-                                    <div class="metric_change positive">+8.3%</div>
-                                </div>
-                                <div class="dashboard_metric_card metric-3">
-                                    <div class="metric_label">Conversion</div>
-                                    <div class="metric_value">3.24%</div>
-                                    <div class="metric_change negative">-2.1%</div>
-                                </div>
-                                <div class="dashboard_metric_card metric-4">
-                                    <div class="metric_label">Active Sessions</div>
-                                    <div class="metric_value">1,428</div>
-                                    <div class="metric_change positive">+15.7%</div>
-                                </div>
-                            </div>
-                            <div class="dashboard_charts">
-                                <div class="dashboard_chart_card chart-main">
-                                    <div class="chart_header">
-                                        <h3>Revenue Trend</h3>
-                                        <div class="chart_period">Last 12 Months</div>
-                                    </div>
-                                    <div class="chart_visual">
-                                        <div class="chart_bar" style="height: 45%"></div>
-                                        <div class="chart_bar" style="height: 62%"></div>
-                                        <div class="chart_bar" style="height: 58%"></div>
-                                        <div class="chart_bar" style="height: 75%"></div>
-                                        <div class="chart_bar" style="height: 68%"></div>
-                                        <div class="chart_bar" style="height: 82%"></div>
-                                        <div class="chart_bar" style="height: 70%"></div>
-                                        <div class="chart_bar" style="height: 88%"></div>
-                                        <div class="chart_bar" style="height: 92%"></div>
-                                        <div class="chart_bar" style="height: 85%"></div>
-                                        <div class="chart_bar" style="height: 95%"></div>
-                                        <div class="chart_bar" style="height: 100%"></div>
-                                    </div>
-                                </div>
-                                <div class="dashboard_chart_card chart-side">
-                                    <div class="chart_header">
-                                        <h3>User Distribution</h3>
-                                    </div>
-                                    <div class="donut_chart">
-                                        <div class="donut_segment segment-1"></div>
-                                        <div class="donut_segment segment-2"></div>
-                                        <div class="donut_segment segment-3"></div>
-                                        <div class="donut_center">
-                                            <span>100%</span>
-                                        </div>
-                                    </div>
-                                    <div class="chart_legend">
-                                        <div class="legend_item"><span class="legend_color c1"></span> Direct 45%</div>
-                                        <div class="legend_item"><span class="legend_color c2"></span> Referral 30%</div>
-                                        <div class="legend_item"><span class="legend_color c3"></span> Organic 25%</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="dashboard_table_section">
-                                <div class="table_header">
-                                    <h3>Recent Transactions</h3>
-                                </div>
-                                <table class="dashboard_table">
-                                    <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Customer</th>
-                                            <th>Amount</th>
-                                            <th>Status</th>
-                                            <th>Date</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>#TXN-001</td>
-                                            <td>Acme Corp</td>
-                                            <td>$2,450</td>
-                                            <td><span class="status completed">Completed</span></td>
-                                            <td>Mar 28, 2026</td>
-                                        </tr>
-                                        <tr>
-                                            <td>#TXN-002</td>
-                                            <td>TechStart Inc</td>
-                                            <td>$1,890</td>
-                                            <td><span class="status pending">Pending</span></td>
-                                            <td>Mar 27, 2026</td>
-                                        </tr>
-                                        <tr>
-                                            <td>#TXN-003</td>
-                                            <td>Global Media</td>
-                                            <td>$3,200</td>
-                                            <td><span class="status completed">Completed</span></td>
-                                            <td>Mar 26, 2026</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 作品详情内容 - 艺术生成器 -->
-                    <div id="work-detail-content" class="detail-content" data-work="3">
-                        <div class="project_global_nav">
-                            <div class="project_back_btn" onclick="closeWorkDetail()">← Back</div>
-                            <div class="project_nav_title">Generative Art Creator</div>
-                            <div class="project_nav_empty"></div>
-                        </div>
-                        <div class="project_scroll_wrap art_wrap">
-                            <div class="art_hero">
-                                <h1 class="art_title">Creative Coding Experience</h1>
-                                <p class="art_subtitle">Interactive generative art powered by mathematical algorithms</p>
-                            </div>
-                            <div class="art_canvas_section">
-                                <div class="art_canvas_container">
-                                    <div class="art_canvas_visual">
-                                        <svg class="art_svg" viewBox="0 0 400 400">
-                                            <defs>
-                                                <linearGradient id="artGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
-                                                    <stop offset="0%" style="stop-color:#000000;stop-opacity:0.8" />
-                                                    <stop offset="100%" style="stop-color:#666666;stop-opacity:0.3" />
-                                                </linearGradient>
-                                            </defs>
-                                            <g class="art_curves"></g>
-                                        </svg>
-                                    </div>
-                                    <div class="art_controls">
-                                        <div class="control_group">
-                                            <label>Complexity</label>
-                                            <input type="range" min="1" max="10" value="5" class="art_slider">
-                                        </div>
-                                        <div class="control_group">
-                                            <label>Flow Speed</label>
-                                            <input type="range" min="1" max="10" value="6" class="art_slider">
-                                        </div>
-                                        <div class="control_group">
-                                            <label>Curve Density</label>
-                                            <input type="range" min="1" max="10" value="4" class="art_slider">
-                                        </div>
-                                        <button class="art_generate_btn">
-                                            <i class="fa-solid fa-wand-magic-sparkles"></i>
-                                            Generate New
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="art_features">
-                                <div class="art_feature">
-                                    <div class="art_feature_icon"><i class="fa-solid fa-infinity"></i></div>
-                                    <h3>Infinite Possibilities</h3>
-                                    <p>Each generation creates unique visuals based on random seed algorithms</p>
-                                </div>
-                                <div class="art_feature">
-                                    <div class="art_feature_icon"><i class="fa-solid fa-sliders"></i></div>
-                                    <h3>Fine-tuned Control</h3>
-                                    <p>Adjust complexity, flow, and density to create your perfect piece</p>
-                                </div>
-                                <div class="art_feature">
-                                    <div class="art_feature_icon"><i class="fa-solid fa-download"></i></div>
-                                    <h3>Export Options</h3>
-                                    <p>Download your creations as SVG, PNG, or high-resolution prints</p>
-                                </div>
-                            </div>
-                            <div class="art_gallery">
-                                <h2 class="art_gallery_title">Generated Collection</h2>
-                                <div class="art_gallery_grid">
-                                    <div class="art_gallery_item"></div>
-                                    <div class="art_gallery_item"></div>
-                                    <div class="art_gallery_item"></div>
-                                    <div class="art_gallery_item"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 作品详情内容 - 待办App -->
-                    <div id="work-detail-content" class="detail-content" data-work="4">
-                        <div class="project_global_nav">
-                            <div class="project_back_btn" onclick="closeWorkDetail()">← Back</div>
-                            <div class="project_nav_title">Minimal Todo App</div>
-                            <div class="project_nav_empty"></div>
-                        </div>
-                        <div class="project_scroll_wrap todo_wrap">
-                            <div class="todo_hero">
-                                <h1 class="todo_title">Focus-Driven Productivity</h1>
-                                <p class="todo_subtitle">A minimal approach to task management</p>
-                            </div>
-                            <div class="todo_preview">
-                                <div class="todo_phone_frame">
-                                    <div class="todo_phone_notch"></div>
-                                    <div class="todo_phone_screen">
-                                        <div class="todo_app_header">
-                                            <h2>Today's Tasks</h2>
-                                            <span class="todo_date">Mar 31</span>
-                                        </div>
-                                        <div class="todo_task_list">
-                                            <div class="todo_task_item completed">
-                                                <div class="todo_checkbox checked"></div>
-                                                <span class="todo_task_text">Morning standup meeting</span>
-                                            </div>
-                                            <div class="todo_task_item">
-                                                <div class="todo_checkbox"></div>
-                                                <span class="todo_task_text">Design review session</span>
-                                            </div>
-                                            <div class="todo_task_item">
-                                                <div class="todo_checkbox"></div>
-                                                <span class="todo_task_text">Code documentation</span>
-                                            </div>
-                                            <div class="todo_task_item">
-                                                <div class="todo_checkbox"></div>
-                                                <span class="todo_task_text">Weekly planning</span>
-                                            </div>
-                                        </div>
-                                        <div class="todo_add_task">
-                                            <input type="text" placeholder="Add new task..." class="todo_input">
-                                            <button class="todo_add_btn"><i class="fa-solid fa-plus"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="todo_features_grid">
-                                <div class="todo_feature_item">
-                                    <i class="fa-solid fa-check-double"></i>
-                                    <h3>Quick Complete</h3>
-                                    <p>Tap to mark tasks done instantly</p>
-                                </div>
-                                <div class="todo_feature_item">
-                                    <i class="fa-solid fa-clock"></i>
-                                    <h3>Due Dates</h3>
-                                    <p>Never miss a deadline again</p>
-                                </div>
-                                <div class="todo_feature_item">
-                                    <i class="fa-solid fa-tag"></i>
-                                    <h3>Categories</h3>
-                                    <p>Organize with color tags</p>
-                                </div>
-                                <div class="todo_feature_item">
-                                    <i class="fa-solid fa-chart-simple"></i>
-                                    <h3>Progress Stats</h3>
-                                    <p>Visualize your productivity</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
                 <!-- 技能模块 -->
                 <div class="skills_section wrap skills_hight">
@@ -611,118 +726,143 @@
                 <!-- 联系模块 -->
                 <div class="contact_section wrap section_hight" id="contact">
                     <div class="section_title">合作咨询</div>
-                    <div class="contact_form">
+                    <form class="contact_form" id="contactForm">
                         <div class="form_group">
-                            <input type="text" class="form_input" placeholder="您的姓名">
+                            <input type="text" class="form_input" placeholder="您的姓名" name="name" required>
                         </div>
                         <div class="form_group">
-                            <input type="email" class="form_input" placeholder="您的邮箱">
+                            <input type="email" class="form_input" placeholder="您的邮箱" name="email" required>
                         </div>
                         <div class="form_group">
-                            <textarea class="form_textarea" placeholder="请描述您的需求（官网/设计/开发）"></textarea>
+                            <textarea class="form_textarea" placeholder="请描述您的需求（官网/设计/开发）" name="message" required></textarea>
                         </div>
-                        <button class="form_button">发送需求</button>
-                    </div>
+                        <button type="submit" class="form_button">发送需求</button>
+                        <div class="form_status" id="formStatus"></div>
+                    </form>
                     <div class="contact_info">
                         <p class="contact_text">承接前端开发/UI设计/创意编码类项目</p>
-                        <a href="mailto:work@minimal.design" class="contact_email">work@minimal.design</a>
+                        <a href="mailto:etta120913@gmail.com" class="contact_email">etta120913@gmail.com</a>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- 开场动画容器 - 保留原始包豪斯风格 -->
-        <div id="intro-overlay">
-            <!-- 动态网格线条容器 -->
-            <div id="grid-lines-container">
-                <!-- 水平网格线 -->
-                <div class="grid-line-h" id="gh1"></div>
-                <div class="grid-line-h" id="gh2"></div>
-                <div class="grid-line-h" id="gh3"></div>
-                <div class="grid-line-h" id="gh4"></div>
-                <div class="grid-line-h" id="gh5"></div>
-                <!-- 垂直网格线 -->
-                <div class="grid-line-v" id="gv1"></div>
-                <div class="grid-line-v" id="gv2"></div>
-                <div class="grid-line-v" id="gv3"></div>
-                <div class="grid-line-v" id="gv4"></div>
-                <div class="grid-line-v" id="gv5"></div>
-            </div>
-
-            <!-- 中心装饰 -->
-            <div id="bauhaus-decoration">
-                <!-- 中心圆形 -->
-                <div class="bauhaus-circle" id="bc1"></div>
-                <!-- 中心方形 -->
-                <div class="bauhaus-square" id="bs1"></div>
-                <!-- 装饰线条 -->
-                <svg class="bauhaus-line" id="bl1" viewBox="0 0 300 300" fill="none" stroke="#000000" stroke-width="2">
-                    <line x1="0" y1="150" x2="300" y2="150" />
-                </svg>
-                <svg class="bauhaus-line" id="bl2" viewBox="0 0 300 300" fill="none" stroke="#000000" stroke-width="2">
-                    <line x1="150" y1="0" x2="150" y2="300" />
-                </svg>
-            </div>
-
-            <!-- Loading和进度条 -->
-            <div id="loading-container">
-                <div id="loading-text">loading</div>
-                <div id="progress-bar-container">
-                    <div id="progress-bar"></div>
-                </div>
-            </div>
+    <!-- 开场动画容器 - 保留原始包豪斯风格 -->
+    <div id="intro-overlay">
+        <!-- 动态网格线条容器 -->
+        <div id="grid-lines-container">
+            <!-- 水平网格线 -->
+            <div class="grid-line-h" id="gh1"></div>
+            <div class="grid-line-h" id="gh2"></div>
+            <div class="grid-line-h" id="gh3"></div>
+            <div class="grid-line-h" id="gh4"></div>
+            <div class="grid-line-h" id="gh5"></div>
+            <!-- 垂直网格线 -->
+            <div class="grid-line-v" id="gv1"></div>
+            <div class="grid-line-v" id="gv2"></div>
+            <div class="grid-line-v" id="gv3"></div>
+            <div class="grid-line-v" id="gv4"></div>
+            <div class="grid-line-v" id="gv5"></div>
         </div>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
-        <script src="script.js"></script>
-        <script>
-            // 初始化自定义鼠标指针
-            (function () {
-                const cursor = document.querySelector('.custom-cursor');
-                if (!cursor) return;
+        <!-- 中心装饰 -->
+        <div id="bauhaus-decoration">
+            <!-- 中心圆形 -->
+            <div class="bauhaus-circle" id="bc1"></div>
+            <!-- 中心方形 -->
+            <div class="bauhaus-square" id="bs1"></div>
+            <!-- 装饰线条 -->
+            <svg class="bauhaus-line" id="bl1" viewBox="0 0 300 300" fill="none" stroke="#000000" stroke-width="2">
+                <line x1="0" y1="150" x2="300" y2="150" />
+            </svg>
+            <svg class="bauhaus-line" id="bl2" viewBox="0 0 300 300" fill="none" stroke="#000000" stroke-width="2">
+                <line x1="150" y1="0" x2="150" y2="300" />
+            </svg>
+        </div>
 
-                const hoverSelectors = 'a, button, .work-item, .custom-hover, .qr-img, .qrcode_placeholder, .myself, .work_placeholder, .work_info, .work_item, .project_back_btn, .art_generate_btn, .todo_add_btn';
-                const hoverElements = document.querySelectorAll(hoverSelectors);
+        <!-- Loading和进度条 -->
+        <div id="loading-container">
+            <div id="loading-text">loading</div>
+            <div id="progress-bar-container">
+                <div id="progress-bar"></div>
+            </div>
+        </div>
+    </div>
 
-                document.addEventListener('mousemove', (e) => {
-                    cursor.style.left = e.clientX - 10 + 'px';
-                    cursor.style.top = e.clientY - 10 + 'px';
-                });
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // 初始化自定义鼠标指针
+        (function () {
+            const cursor = document.querySelector('.custom-cursor');
+            if (!cursor) return;
 
-                hoverElements.forEach(el => {
-                    el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-                    el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-                });
+            const hoverSelectors = 'a, button, .work-item, .custom-hover, .qr-img, .qrcode_placeholder, .myself, .work_placeholder, .work_info, .work_item, .project_back_btn, .art_generate_btn, .todo_add_btn';
+            const hoverElements = document.querySelectorAll(hoverSelectors);
 
-                document.addEventListener('mouseover', (e) => {
-                    if (e.target.matches(hoverSelectors)) {
-                        cursor.classList.add('hover');
-                    }
-                });
-                document.addEventListener('mouseout', (e) => {
-                    if (e.target.matches(hoverSelectors)) {
-                        cursor.classList.remove('hover');
-                    }
-                });
-            })();
+            let mouseX = 0, mouseY = 0;
+            let cursorX = 0, cursorY = 0;
+            let isHovering = false;
 
-            // 关闭作品详情函数
-            function closeWorkDetail() {
-                const detailOverlay = document.getElementById('work-detail-overlay');
-                const detailContents = document.querySelectorAll('.detail-content');
-                
-                detailContents.forEach(content => {
-                    content.style.display = 'none';
-                });
-                
-                detailOverlay.style.display = 'none';
-                
-                document.getElementById('work').scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+
+            function animateCursor() {
+                const easing = isHovering ? 0.18 : 0.12;
+
+                cursorX += (mouseX - 10 - cursorX) * easing;
+                cursorY += (mouseY - 10 - cursorY) * easing;
+
+                cursor.style.left = cursorX + 'px';
+                cursor.style.top = cursorY + 'px';
+
+                requestAnimationFrame(animateCursor);
             }
-        </script>
+            animateCursor();
+
+            hoverElements.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    isHovering = true;
+                    cursor.classList.add('hover');
+                });
+                el.addEventListener('mouseleave', () => {
+                    isHovering = false;
+                    cursor.classList.remove('hover');
+                });
+            });
+
+            document.addEventListener('mouseover', (e) => {
+                if (e.target.matches(hoverSelectors)) {
+                    cursor.classList.add('hover');
+                }
+            });
+            document.addEventListener('mouseout', (e) => {
+                if (e.target.matches(hoverSelectors)) {
+                    cursor.classList.remove('hover');
+                }
+            });
+        })();
+
+        // 关闭作品详情函数
+        function closeWorkDetail() {
+            const detailOverlay = document.getElementById('work-detail-overlay');
+            const detailContents = document.querySelectorAll('.detail-content');
+
+            detailContents.forEach(content => {
+                content.style.display = 'none';
+            });
+
+            detailOverlay.style.display = 'none';
+
+            document.getElementById('work').scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    </script>
 </body>
 
 </html>
