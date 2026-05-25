@@ -63,8 +63,8 @@
         <section class="detail-section">
             <h2 class="detail-section-title">视频播放</h2>
             <div class="video-container" id="video-container">
-                <video id="main-video" src="../video/替我去看世界.mp4" preload="metadata" playsinline>
-                    <source src="../video/替我去看世界.mp4" type="video/mp4">
+                <video id="main-video" src="../video/go-see-world.mp4" preload="metadata" playsinline>
+                    <source src="../video/go-see-world.mp4" type="video/mp4">
                 </video>
                 <div class="video-overlay" id="video-overlay"><div class="play-btn"><i class="fa-solid fa-play"></i></div></div>
             </div>
@@ -89,7 +89,7 @@
             <div class="doc-dl-card">
                 <div class="doc-icon"><i class="fa-solid fa-file-word"></i></div>
                 <div class="doc-info"><h3>替我活下去的她_订正稿.docx</h3><p>叙事脚本 · 原始创作文档</p></div>
-                <a href="../AIGC/live/替我活下去的她_订正稿.docx" target="_blank" class="doc-dl-btn"><i class="fa-solid fa-download"></i> 查看文档</a>
+                <a href="../img/live-for-me-script.docx" target="_blank" class="doc-dl-btn"><i class="fa-solid fa-download"></i> 查看文档</a>
             </div>
         </section>
         <section class="detail-section">
@@ -106,6 +106,7 @@
             const progressFill=document.getElementById('progress-fill'),timeLabel=document.getElementById('time-label');
 
             function fmt(t){const m=Math.floor(t/60),s=Math.floor(t%60);return String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');}
+            function togglePlay(){if(video.paused){video.play().catch(()=>{});}else{video.pause();}}
 
             video.addEventListener('loadedmetadata',()=>{timeLabel.textContent='00:00 / '+fmt(video.duration);});
 
@@ -115,8 +116,8 @@
             video.addEventListener('pause',()=>{overlay.classList.remove('hidden');playBtn.innerHTML='<i class="fa-solid fa-play"></i>';});
             video.addEventListener('ended',()=>{overlay.classList.remove('hidden');playBtn.innerHTML='<i class="fa-solid fa-play"></i>';});
 
-            overlay.addEventListener('click',()=>{video.paused?video.play():video.pause();});
-            playBtn.addEventListener('click',()=>{video.paused?video.play():video.pause();});
+            overlay.addEventListener('click',(e)=>{e.stopPropagation();togglePlay();});
+            playBtn.addEventListener('click',(e)=>{e.stopPropagation();togglePlay();});
 
             progressWrap.addEventListener('click',e=>{const r=progressWrap.getBoundingClientRect();video.currentTime=(e.clientX-r.left)/r.width*video.duration;});
 

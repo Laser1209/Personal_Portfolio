@@ -96,6 +96,7 @@
             const progressFill=document.getElementById('progress-fill'),timeLabel=document.getElementById('time-label');
 
             function fmt(t){const m=Math.floor(t/60),s=Math.floor(t%60);return String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');}
+            function togglePlay(){if(video.paused){video.play().catch(()=>{});}else{video.pause();}}
 
             video.addEventListener('loadedmetadata',()=>{timeLabel.textContent='00:00 / '+fmt(video.duration);});
 
@@ -105,8 +106,8 @@
             video.addEventListener('pause',()=>{overlay.classList.remove('hidden');playBtn.innerHTML='<i class="fa-solid fa-play"></i>';});
             video.addEventListener('ended',()=>{overlay.classList.remove('hidden');playBtn.innerHTML='<i class="fa-solid fa-play"></i>';});
 
-            overlay.addEventListener('click',()=>{video.paused?video.play():video.pause();});
-            playBtn.addEventListener('click',()=>{video.paused?video.play():video.pause();});
+            overlay.addEventListener('click',(e)=>{e.stopPropagation();togglePlay();});
+            playBtn.addEventListener('click',(e)=>{e.stopPropagation();togglePlay();});
 
             progressWrap.addEventListener('click',e=>{const r=progressWrap.getBoundingClientRect();video.currentTime=(e.clientX-r.left)/r.width*video.duration;});
 

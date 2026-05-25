@@ -193,8 +193,8 @@
     overflow: hidden;
 }
 
-/* 作品详情内容 - 初始隐藏所有 */
-.detail-content {
+/* 首页作品详情弹窗 - 初始隐藏 */
+#work-detail-overlay .detail-content {
     display: none;
     width: 100%;
     height: 100%;
