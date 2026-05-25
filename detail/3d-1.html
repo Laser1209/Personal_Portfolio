@@ -3,112 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>三维建模 | Creative Developer Portfolio</title>
+    <title>游戏角色-斯卡蒂 | Creative Developer Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../style.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif; }
-        :root {
-            --primary-gradient: linear-gradient(135deg, #1a1a1a 0%, #4a4a4a 100%);
-            --text-primary: #1a1a1a; --text-secondary: #525252; --text-muted: #737373;
-            --background-light: #fafafa; --background-dark: #1a1a1a;
-            --card-background: #ffffff; --border-color: #d4d4d4; --border-light: #e5e5e5;
-            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08); --shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.12);
-        }
+        :root { --primary-gradient: linear-gradient(135deg, #1a1a1a 0%, #4a4a4a 100%); --text-primary: #1a1a1a; --text-secondary: #525252; --text-muted: #737373; --background-light: #fafafa; --background-dark: #1a1a1a; --card-background: #ffffff; --border-light: #e5e5e5; --shadow: 0 10px 30px rgba(0,0,0,0.08); --shadow-hover: 0 15px 40px rgba(0,0,0,0.12); }
         body { width: 100vw; min-height: 100vh; margin: 0; padding: 0; background: var(--background-light); overflow-x: hidden; color: var(--text-primary); }
-        .detail-nav { position: fixed; top: 0; left: 0; width: 100%; height: 72px; background: rgba(250, 250, 250, 0.95); backdrop-filter: blur(20px); display: flex; align-items: center; justify-content: space-between; padding: 0 60px; z-index: 100; border-bottom: 1px solid var(--border-light); }
+        .detail-nav { position: fixed; top: 0; left: 0; width: 100%; height: 72px; background: rgba(250,250,250,0.95); backdrop-filter: blur(20px); display: flex; align-items: center; justify-content: space-between; padding: 0 60px; z-index: 100; border-bottom: 1px solid var(--border-light); }
         .back-btn { display: inline-flex; align-items: center; gap: 10px; color: var(--text-secondary); text-decoration: none; font-size: 15px; font-weight: 500; transition: all 0.3s ease; padding: 10px 20px; border-radius: 30px; }
         .back-btn:hover { color: var(--text-primary); background: var(--border-light); }
-        .back-btn i { font-size: 14px; transition: transform 0.3s ease; }
-        .back-btn:hover i { transform: translateX(-4px); }
-        .nav-title { font-size: 16px; font-weight: 600; color: var(--text-primary); }
-        .nav-placeholder { width: 120px; }
-        .detail-hero { padding: 140px 80px 80px; background: linear-gradient(180deg, var(--background-dark) 0%, var(--background-light) 100%); color: #ffffff; min-height: 50vh; display: flex; flex-direction: column; justify-content: flex-end; }
+        .back-btn i { font-size: 14px; transition: transform 0.3s ease; } .back-btn:hover i { transform: translateX(-4px); }
+        .nav-title { font-size: 16px; font-weight: 600; color: var(--text-primary); } .nav-placeholder { width: 120px; }
+        .detail-hero { padding: 140px 80px 80px; background: linear-gradient(180deg, var(--background-dark) 0%, var(--background-light) 100%); color: #fff; min-height: 50vh; display: flex; flex-direction: column; justify-content: flex-end; }
         .detail-hero-tags { display: flex; gap: 12px; margin-bottom: 24px; }
-        .detail-tag { padding: 8px 16px; background: rgba(255, 255, 255, 0.15); border-radius: 20px; font-size: 13px; font-weight: 500; color: #ffffff; }
+        .detail-tag { padding: 8px 16px; background: rgba(255,255,255,0.15); border-radius: 20px; font-size: 13px; font-weight: 500; color: #fff; }
         .detail-hero-title { font-size: 56px; font-weight: 700; margin-bottom: 16px; line-height: 1.2; }
-        .detail-hero-description { font-size: 18px; color: rgba(255, 255, 255, 0.8); max-width: 700px; line-height: 1.6; }
+        .detail-hero-description { font-size: 18px; color: rgba(255,255,255,0.8); max-width: 700px; line-height: 1.6; }
         .detail-content { padding: 80px; max-width: 1200px; margin: 0 auto; }
         .detail-section { margin-bottom: 80px; }
         .detail-section-title { font-size: 28px; font-weight: 600; margin-bottom: 32px; color: var(--text-primary); position: relative; padding-left: 20px; }
         .detail-section-title::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 4px; height: 28px; background: var(--primary-gradient); border-radius: 2px; }
-        .placeholder-box { width: 100%; height: 500px; background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%); border-radius: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px; color: #737373; position: relative; overflow: hidden; }
-        .placeholder-box::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.03) 10px, rgba(255,255,255,0.03) 20px); }
-        .placeholder-box i { font-size: 80px; color: #4a4a4a; position: relative; z-index: 1; }
-        .placeholder-box .coming-soon { font-size: 24px; font-weight: 600; color: #a3a3a3; position: relative; z-index: 1; }
-        .placeholder-box .description { font-size: 14px; color: #737373; position: relative; z-index: 1; text-align: center; max-width: 400px; line-height: 1.6; }
-        .expected-works { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; margin-top: 40px; }
-        .expected-card { background: var(--card-background); border-radius: 16px; padding: 24px; box-shadow: var(--shadow); text-align: center; }
-        .expected-card i { font-size: 36px; color: var(--text-muted); margin-bottom: 16px; }
-        .expected-card h4 { font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 8px; }
-        .expected-card p { font-size: 13px; color: var(--text-secondary); }
-        .screenshot-placeholder { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; margin-top: 24px; }
-        .screenshot-item { aspect-ratio: 16/9; background: var(--border-light); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 13px; }
-        @media (max-width: 768px) {
-            .detail-nav { padding: 0 20px; }
-            .detail-hero { padding: 120px 24px 60px; }
-            .detail-hero-title { font-size: 36px; }
-            .detail-content { padding: 40px 24px; }
-            .placeholder-box { height: 350px; }
-        }
+        .render-container { width: 100%; border-radius: 20px; overflow: hidden; box-shadow: var(--shadow); background: #0a0a0a; }
+        .render-container img { width: 100%; display: block; }
+        .download-card { background: var(--card-background); border-radius: 16px; padding: 32px; box-shadow: var(--shadow); display: flex; align-items: center; gap: 24px; margin-top: 24px; transition: all 0.3s ease; }
+        .download-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+        .download-icon { width: 64px; height: 64px; background: linear-gradient(135deg, #1a1a1a, #333); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 28px; color: #fff; flex-shrink: 0; }
+        .download-info { flex: 1; }
+        .download-info h3 { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
+        .download-info p { font-size: 13px; color: var(--text-muted); }
+        .download-btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 28px; background: var(--primary-gradient); color: #fff; text-decoration: none; border-radius: 30px; font-size: 15px; font-weight: 600; transition: all 0.3s ease; flex-shrink: 0; }
+        .download-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.25); }
+        .info-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
+        .info-card { background: var(--card-background); border-radius: 16px; padding: 32px; box-shadow: var(--shadow); transition: all 0.3s ease; }
+        .info-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-hover); }
+        .info-icon { width: 56px; height: 56px; background: #e5e5e5; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; font-size: 24px; }
+        .info-card h3 { font-size: 18px; font-weight: 600; margin-bottom: 8px; }
+        .info-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+        .tech-stack { display: flex; gap: 12px; flex-wrap: wrap; }
+        .tech-item { padding: 12px 24px; background: var(--card-background); border-radius: 30px; font-size: 14px; font-weight: 500; box-shadow: var(--shadow); }
+        @media (max-width: 768px) { .detail-nav { padding: 0 20px; } .detail-hero { padding: 120px 24px 60px; } .detail-hero-title { font-size: 36px; } .detail-content { padding: 40px 24px; } .download-card { flex-direction: column; align-items: flex-start; text-align: left; } }
     </style>
 </head>
 <body>
-    <nav class="detail-nav">
-        <a href="../works.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i><span>返回作品集</span></a>
-        <div class="nav-title">三维建模</div>
-        <div class="nav-placeholder"></div>
-    </nav>
-    <header class="detail-hero">
-        <div class="detail-hero-tags"><span class="detail-tag">设计类型</span><span class="detail-tag">三维建模</span></div>
-        <h1 class="detail-hero-title">三维建模</h1>
-        <p class="detail-hero-description">三维场景与产品建模设计，将创意以立体化的方式呈现，提供沉浸式的视觉体验。目前正在准备中，敬请期待。</p>
-    </header>
+    <nav class="detail-nav"><a href="../works.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i><span>返回作品集</span></a><div class="nav-title">游戏角色-斯卡蒂</div><div class="nav-placeholder"></div></nav>
+    <header class="detail-hero"><div class="detail-hero-tags"><span class="detail-tag">设计类型</span><span class="detail-tag">三维建模</span></div><h1 class="detail-hero-title">游戏角色-斯卡蒂</h1><p class="detail-hero-description">基于《明日方舟》人气角色"斯卡蒂（Skadi）"进行的三维角色建模创作。从概念原画出发，通过三维建模、材质贴图与渲染流程，将二维角色转化为立体化的高精度三维模型。</p></header>
     <main class="detail-content">
         <section class="detail-section">
-            <h2 class="detail-section-title">即将上线</h2>
-            <div class="placeholder-box">
-                <i class="fa-solid fa-cube"></i>
-                <span class="coming-soon">COMING SOON</span>
-                <span class="description">三维建模作品正在紧张制作中，即将上线与大家见面</span>
-            </div>
-            <div class="screenshot-placeholder">
-                <div class="screenshot-item"><i class="fa-solid fa-image"></i> 成品截图 1</div>
-                <div class="screenshot-item"><i class="fa-solid fa-image"></i> 成品截图 2</div>
-                <div class="screenshot-item"><i class="fa-solid fa-image"></i> 成品截图 3</div>
-                <div class="screenshot-item"><i class="fa-solid fa-image"></i> 成品截图 4</div>
-            </div>
-            <div class="expected-works">
-                <div class="expected-card">
-                    <i class="fa-solid fa-building"></i>
-                    <h4>场景建模</h4>
-                    <p>室内外场景三维复现</p>
-                </div>
-                <div class="expected-card">
-                    <i class="fa-solid fa-box"></i>
-                    <h4>产品展示</h4>
-                    <p>产品三维展示建模</p>
-                </div>
-                <div class="expected-card">
-                    <i class="fa-solid fa-cube"></i>
-                    <h4>创意建模</h4>
-                    <p>原创三维艺术作品</p>
-                </div>
+            <h2 class="detail-section-title">渲染样图</h2>
+            <div class="render-container"><img src="../img/skadi-render.png" alt="斯卡蒂渲染样图"></div>
+        </section>
+        <section class="detail-section">
+            <h2 class="detail-section-title">项目文件下载</h2>
+            <div class="download-card">
+                <div class="download-icon"><i class="fa-solid fa-file-zipper"></i></div>
+                <div class="download-info"><h3>项目包.rar</h3><p>斯卡蒂三维建模完整项目文件包 · 包含模型源文件、材质贴图、场景工程</p></div>
+                <a href="../modeling/sikadi/项目包.rar" download class="download-btn"><i class="fa-solid fa-download"></i><span>下载项目包</span></a>
             </div>
         </section>
+        <section class="detail-section">
+            <h2 class="detail-section-title">创作说明</h2>
+            <div class="info-grid">
+                <div class="info-card"><div class="info-icon"><i class="fa-solid fa-draw-polygon"></i></div><h3>建模流程</h3><p>从角色概念原画出发，进行低模构建 → 高模雕刻 → 拓扑优化 → UV展开 → 材质烘焙的完整PBR流程，确保模型在渲染中呈现精准的光影质感。</p></div>
+                <div class="info-card"><div class="info-icon"><i class="fa-solid fa-paint-brush"></i></div><h3>贴图材质</h3><p>采用PBR材质体系，为角色皮肤、服饰、武器等不同部位分别制作颜色贴图、法线贴图、粗糙度贴图与金属度贴图，还原角色材质特性。</p></div>
+                <div class="info-card"><div class="info-icon"><i class="fa-solid fa-lightbulb"></i></div><h3>灯光渲染</h3><p>使用三点式布光方案：主光+辅光+轮廓光，配合HDRI环境光照，突出角色体积感与轮廓层次，最终输出高分辨率渲染样图。</p></div>
+                <div class="info-card"><div class="info-icon"><i class="fa-solid fa-gamepad"></i></div><h3>角色还原</h3><p>忠实还原斯卡蒂的标志性造型特征——白色长发、利落战甲、虎鲸主题配饰，在三维空间中重新诠释角色的飒爽英姿与独特气质。</p></div>
+            </div>
+        </section>
+        <section class="detail-section">
+            <h2 class="detail-section-title">技术栈</h2>
+            <div class="tech-stack"><span class="tech-item">Blender</span><span class="tech-item">PBR工作流</span><span class="tech-item">角色建模</span><span class="tech-item">UV贴图</span><span class="tech-item">材质渲染</span><span class="tech-item">Substance Painter</span></div>
+        </section>
     </main>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            anime.timeline()
-                .add({ targets: '.detail-hero-tags .detail-tag', opacity: [0, 1], translateY: [20, 0], delay: anime.stagger(100), duration: 600, easing: 'easeOutQuad' })
-                .add({ targets: '.detail-hero-title', opacity: [0, 1], translateY: [40, 0], duration: 800, easing: 'easeOutQuad' }, '-=400')
-                .add({ targets: '.detail-hero-description', opacity: [0, 1], translateY: [30, 0], duration: 800, easing: 'easeOutQuad' }, '-=600')
-                .add({ targets: '.placeholder-box', opacity: [0, 1], scale: [0.95, 1], duration: 800, easing: 'easeOutQuad' }, '-=400')
-                .add({ targets: '.screenshot-item', opacity: [0, 1], scale: [0.9, 1], delay: anime.stagger(50), duration: 500, easing: 'easeOutQuad' }, '-=400')
-                .add({ targets: '.expected-card', opacity: [0, 1], translateY: [30, 0], delay: anime.stagger(100), duration: 600, easing: 'easeOutQuad' }, '-=400');
-        });
-    </script>
+    <script>document.addEventListener('DOMContentLoaded',()=>{anime.timeline().add({targets:'.detail-hero-tags .detail-tag',opacity:[0,1],translateY:[20,0],delay:anime.stagger(100),duration:600,easing:'easeOutQuad'}).add({targets:'.detail-hero-title',opacity:[0,1],translateY:[40,0],duration:800,easing:'easeOutQuad'},'-=400').add({targets:'.detail-hero-description',opacity:[0,1],translateY:[30,0],duration:800,easing:'easeOutQuad'},'-=600');});</script>
 </body>
 </html>

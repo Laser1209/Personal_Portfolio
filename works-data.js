@@ -44,6 +44,38 @@ const WorksData = {
                         tags: ["设计类型", "海报设计"],
                         description: "新中式风格海报设计",
                         detailPage: "detail/poster-5.html"
+                    },
+                    {
+                        id: "poster-6",
+                        title: "以手造物",
+                        thumbnail: "img/以手造物.png",
+                        tags: ["设计类型", "海报设计"],
+                        description: "手工艺主题视觉设计",
+                        detailPage: "detail/poster-6.html"
+                    },
+                    {
+                        id: "poster-7",
+                        title: "以手造物 以文传心",
+                        thumbnail: "img/以手造物 以文传心.png",
+                        tags: ["设计类型", "海报设计"],
+                        description: "文创主题海报设计",
+                        detailPage: "detail/poster-7.html"
+                    },
+                    {
+                        id: "poster-8",
+                        title: "墨缘音乐协会",
+                        thumbnail: "img/墨缘音乐协会-KT板.png",
+                        tags: ["设计类型", "海报设计"],
+                        description: "音乐协会活动展板设计",
+                        detailPage: "detail/poster-8.html"
+                    },
+                    {
+                        id: "poster-9",
+                        title: "古风博物馆展览海报",
+                        thumbnail: "img/黄褐色古风中式人文博物馆展览海报.pdf",
+                        tags: ["设计类型", "海报设计"],
+                        description: "中式人文博物馆黄褐色古风展览海报",
+                        detailPage: "detail/poster-9.html"
                     }
                 ]
             },
@@ -102,12 +134,19 @@ const WorksData = {
                 works: [
                     {
                         id: "aigc-1",
-                        title: "即将上线",
+                        title: "Each Rich",
+                        thumbnail: "img/工作流-each-rich.png",
+                        tags: ["设计类型", "视频剪辑"],
+                        description: "AIGC风格化短片 - 逐富",
+                        detailPage: "detail/aigc-1.html"
+                    },
+                    {
+                        id: "aigc-2",
+                        title: "替我去看世界",
                         thumbnail: "",
                         tags: ["设计类型", "视频剪辑"],
-                        description: "AIGC视频作品正在准备中",
-                        isPlaceholder: true,
-                        detailPage: "detail/aigc-1.html"
+                        description: "AIGC叙事短片 - 替我活下去的她",
+                        detailPage: "detail/aigc-2.html"
                     }
                 ]
             }
@@ -119,11 +158,10 @@ const WorksData = {
         works: [
             {
                 id: "3d-1",
-                title: "即将上线",
-                thumbnail: "",
+                title: "游戏角色-斯卡蒂",
+                thumbnail: "img/skadi-render.png",
                 tags: ["设计类型", "三维建模"],
-                description: "三维建模作品正在准备中",
-                isPlaceholder: true,
+                description: "明日方舟·斯卡蒂 角色三维建模",
                 detailPage: "detail/3d-1.html"
             },
             {
