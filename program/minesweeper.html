@@ -1,130 +1,318 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>扫雷</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:linear-gradient(135deg,#1a1a2e,#16213e);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'Segoe UI',Arial,sans-serif}
-.game-wrapper{background:rgba(255,255,255,0.1);border-radius:20px;padding:20px;backdrop-filter:blur(10px);box-shadow:0 8px 32px rgba(0,0,0,0.3)}
-.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;color:#fff;flex-wrap:wrap;gap:10px}
-.info{display:flex;gap:12px}
-.info-item{background:rgba(0,0,0,0.3);padding:6px 14px;border-radius:8px;font-weight:bold;font-size:14px}
-.btn-lvl{padding:6px 14px;border:none;border-radius:6px;cursor:pointer;background:rgba(255,255,255,0.2);color:#fff;font-size:12px;transition:all 0.3s}
-.btn-lvl.active{background:#00ff88;color:#000;font-weight:bold}
-.btn{padding:8px 16px;border:none;border-radius:8px;cursor:pointer;font-weight:bold;transition:all 0.3s;color:#fff;background:linear-gradient(45deg,#00ff88,#00cc6a)}
-.board{display:grid;gap:2px;padding:8px;background:rgba(0,0,0,0.3);border-radius:8px;max-width:95vw}
-.cell{width:28px;height:28px;background:linear-gradient(145deg,#c0c0c0,#a0a0a0);border:none;border-radius:3px;cursor:pointer;font-size:12px;font-weight:bold;display:flex;align-items:center;justify-content:center;color:#333;transition:all 0.1s;padding:0}
-.cell:hover:not(.revealed){background:linear-gradient(145deg,#d0d0d0,#b0b0b0)}
-.cell.revealed{background:#e0e0e0;cursor:default}
-.cell.flagged{background:linear-gradient(145deg,#ffcc00,#ff9900)}
-.cell.mine{background:linear-gradient(145deg,#ff4444,#cc0000);animation:exp 0.3s}
-@keyframes exp{0%{transform:scale(1)}50%{transform:scale(1.2)}100%{transform:scale(1)}}
-.overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);display:none;flex-direction:column;align-items:center;justify-content:center;z-index:100}
-.overlay.show{display:flex}
-.overlay h2{font-size:32px;margin-bottom:12px}
-.overlay.win h2{color:#00ff88}
-.overlay.lose h2{color:#ff4444}
-.overlay p{color:#fff;font-size:18px;margin-bottom:15px}
-.num0{color:transparent}.num1{color:#00f}.num2{color:#008000}.num3{color:#f00}.num4{color:#000080}.num5{color:#800000}.num6{color:#008080}.num7{color:#000}.num8{color:#666}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>扫雷</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box
+    }
+
+    body {
+      background: linear-gradient(135deg, #1a1a2e, #16213e);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Segoe UI', Arial, sans-serif
+    }
+
+    .game-wrapper {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 20px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3)
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      color: #fff;
+      flex-wrap: wrap;
+      gap: 10px
+    }
+
+    .info {
+      display: flex;
+      gap: 12px
+    }
+
+    .info-item {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 14px
+    }
+
+    .btn-lvl {
+      padding: 6px 14px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      font-size: 12px;
+      transition: all 0.3s
+    }
+
+    .btn-lvl.active {
+      background: #00ff88;
+      color: #000;
+      font-weight: bold
+    }
+
+    .btn {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s;
+      color: #fff;
+      background: linear-gradient(45deg, #00ff88, #00cc6a)
+    }
+
+    .board {
+      display: grid;
+      gap: 2px;
+      padding: 8px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 8px;
+      max-width: 95vw
+    }
+
+    .cell {
+      width: 28px;
+      height: 28px;
+      background: linear-gradient(145deg, #c0c0c0, #a0a0a0);
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #333;
+      transition: all 0.1s;
+      padding: 0
+    }
+
+    .cell:hover:not(.revealed) {
+      background: linear-gradient(145deg, #d0d0d0, #b0b0b0)
+    }
+
+    .cell.revealed {
+      background: #e0e0e0;
+      cursor: default
+    }
+
+    .cell.flagged {
+      background: linear-gradient(145deg, #ffcc00, #ff9900)
+    }
+
+    .cell.mine {
+      background: linear-gradient(145deg, #ff4444, #cc0000);
+      animation: exp 0.3s
+    }
+
+    @keyframes exp {
+      0% {
+        transform: scale(1)
+      }
+
+      50% {
+        transform: scale(1.2)
+      }
+
+      100% {
+        transform: scale(1)
+      }
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 100
+    }
+
+    .overlay.show {
+      display: flex
+    }
+
+    .overlay h2 {
+      font-size: 32px;
+      margin-bottom: 12px
+    }
+
+    .overlay.win h2 {
+      color: #00ff88
+    }
+
+    .overlay.lose h2 {
+      color: #ff4444
+    }
+
+    .overlay p {
+      color: #fff;
+      font-size: 18px;
+      margin-bottom: 15px
+    }
+
+    .num0 {
+      color: transparent
+    }
+
+    .num1 {
+      color: #00f
+    }
+
+    .num2 {
+      color: #008000
+    }
+
+    .num3 {
+      color: #f00
+    }
+
+    .num4 {
+      color: #000080
+    }
+
+    .num5 {
+      color: #800000
+    }
+
+    .num6 {
+      color: #008080
+    }
+
+    .num7 {
+      color: #000
+    }
+
+    .num8 {
+      color: #666
+    }
+  </style>
 </head>
+
 <body>
-<div class="game-wrapper">
-  <div class="header">
-    <div class="info">
-      <span class="info-item">🚩 <span id="flag">0</span></span>
-      <span class="info-item">💣 <span id="mines">10</span></span>
-      <span class="info-item">⏱ <span id="time">0</span></span>
+  <div class="game-wrapper">
+    <div class="header">
+      <div class="info">
+        <span class="info-item">🚩 <span id="flag">0</span></span>
+        <span class="info-item">💣 <span id="mines">10</span></span>
+        <span class="info-item">⏱ <span id="time">0</span></span>
+      </div>
+      <h1 style="color:#fff;margin:0;font-size:22px">扫雷</h1>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        <button class="btn-lvl active" data-lvl="easy">简单</button>
+        <button class="btn-lvl" data-lvl="medium">中等</button>
+        <button class="btn-lvl" data-lvl="hard">困难</button>
+        <button class="btn" id="btn-restart">重新开始</button>
+      </div>
     </div>
-    <h1 style="color:#fff;margin:0;font-size:22px">扫雷</h1>
-    <div style="display:flex;gap:6px;flex-wrap:wrap">
-      <button class="btn-lvl active" data-lvl="easy">简单</button>
-      <button class="btn-lvl" data-lvl="medium">中等</button>
-      <button class="btn-lvl" data-lvl="hard">困难</button>
-      <button class="btn" id="btn-restart">重新开始</button>
+    <div class="board" id="board"></div>
+    <div class="overlay" id="overlay">
+      <h2></h2>
+      <p></p><button class="btn" id="overlay-btn">再来一局</button>
     </div>
   </div>
-  <div class="board" id="board"></div>
-  <div class="overlay" id="overlay"><h2></h2><p></p><button class="btn" id="overlay-btn">再来一局</button></div>
-</div>
 
-<script>
-'use strict';
+  <script>
+    'use strict';
 
-const CFG={easy:{r:9,c:9,m:10},medium:{r:16,c:16,m:40},hard:{r:16,c:30,m:99}};
-let level='easy',board,revealed,flagged,maplist,gameOver,gameWon,totalMines,flagCount,startTime,timerInterval;
-const flagEl=document.getElementById('flag'),mineEl=document.getElementById('mines'),timeEl=document.getElementById('time');
-const boardEl=document.getElementById('board'),overlay=document.getElementById('overlay');
+    const CFG = { easy: { r: 9, c: 9, m: 10 }, medium: { r: 16, c: 16, m: 40 }, hard: { r: 16, c: 30, m: 99 } };
+    let level = 'easy', board, revealed, flagged, maplist, gameOver, gameWon, totalMines, flagCount, startTime, timerInterval;
+    const flagEl = document.getElementById('flag'), mineEl = document.getElementById('mines'), timeEl = document.getElementById('time');
+    const boardEl = document.getElementById('board'), overlay = document.getElementById('overlay');
 
-function init(lvl){
-  if(timerInterval) clearInterval(timerInterval);
-  level=lvl||level; const c=CFG[level];
-  document.querySelectorAll('.btn-lvl').forEach(b=>b.classList.toggle('active',b.dataset.lvl===level));
-  totalMines=c.m; flagCount=0; gameOver=false; gameWon=false; startTime=null;
-  board=Array(c.r).fill(null).map(()=>Array(c.c).fill(0));
-  revealed=Array(c.r).fill(null).map(()=>Array(c.c).fill(false));
-  flagged=Array(c.r).fill(null).map(()=>Array(c.c).fill(false));
-  maplist=[];
-  let placed=0;
-  while(placed<totalMines){const r=Math.floor(Math.random()*c.r),cl=Math.floor(Math.random()*c.c);if(board[r][cl]!==-1){board[r][cl]=-1;maplist.push({r,cl});placed++;}}
-  for(let r=0;r<c.r;r++)for(let cl=0;cl<c.c;cl++){if(board[r][cl]===-1)continue;let cnt=0;for(let dr=-1;dr<=1;dr++)for(let dc=-1;dc<=1;dc++){if(!dr&&!dc)continue;const nr=r+dr,nc=cl+dc;if(nr>=0&&nr<c.r&&nc>=0&&nc<c.c&&board[nr][nc]===-1)cnt++;}board[r][cl]=cnt;}
-  overlay.classList.remove('show','win','lose');
-  updateUI(); render();
-}
+    function init(lvl) {
+      if (timerInterval) clearInterval(timerInterval);
+      level = lvl || level; const c = CFG[level];
+      document.querySelectorAll('.btn-lvl').forEach(b => b.classList.toggle('active', b.dataset.lvl === level));
+      totalMines = c.m; flagCount = 0; gameOver = false; gameWon = false; startTime = null;
+      board = Array(c.r).fill(null).map(() => Array(c.c).fill(0));
+      revealed = Array(c.r).fill(null).map(() => Array(c.c).fill(false));
+      flagged = Array(c.r).fill(null).map(() => Array(c.c).fill(false));
+      maplist = [];
+      let placed = 0;
+      while (placed < totalMines) { const r = Math.floor(Math.random() * c.r), cl = Math.floor(Math.random() * c.c); if (board[r][cl] !== -1) { board[r][cl] = -1; maplist.push({ r, cl }); placed++; } }
+      for (let r = 0; r < c.r; r++)for (let cl = 0; cl < c.c; cl++) { if (board[r][cl] === -1) continue; let cnt = 0; for (let dr = -1; dr <= 1; dr++)for (let dc = -1; dc <= 1; dc++) { if (!dr && !dc) continue; const nr = r + dr, nc = cl + dc; if (nr >= 0 && nr < c.r && nc >= 0 && nc < c.c && board[nr][nc] === -1) cnt++; } board[r][cl] = cnt; }
+      overlay.classList.remove('show', 'win', 'lose');
+      updateUI(); render();
+    }
 
-function clickCell(r,cl){
-  if(gameOver||gameWon||flagged[r][cl]||revealed[r][cl]) return;
-  if(!startTime){startTime=Date.now(); timerInterval=setInterval(()=>{if(startTime&&!gameOver&&!gameWon)timeEl.textContent=Math.floor((Date.now()-startTime)/1000);},1000);}
-  if(board[r][cl]===-1){revealed[r][cl]=true;gameOver=true;maplist.forEach(m=>{revealed[m.r][m.cl]=true;});render();endGame();return;}
-  reveal(r,cl); checkWin(); updateUI(); render(); if(gameWon)endGame();
-}
+    function clickCell(r, cl) {
+      if (gameOver || gameWon || flagged[r][cl] || revealed[r][cl]) return;
+      if (!startTime) { startTime = Date.now(); timerInterval = setInterval(() => { if (startTime && !gameOver && !gameWon) timeEl.textContent = Math.floor((Date.now() - startTime) / 1000); }, 1000); }
+      if (board[r][cl] === -1) { revealed[r][cl] = true; gameOver = true; maplist.forEach(m => { revealed[m.r][m.cl] = true; }); render(); endGame(); return; }
+      reveal(r, cl); checkWin(); updateUI(); render(); if (gameWon) endGame();
+    }
 
-function reveal(r,cl){
-  if(r<0||r>=CFG[level].r||cl<0||cl>=CFG[level].c||revealed[r][cl]||flagged[r][cl]) return;
-  revealed[r][cl]=true;
-  if(board[r][cl]===0)for(let dr=-1;dr<=1;dr++)for(let dc=-1;dc<=1;dc++)if(dr||dc)reveal(r+dr,cl+dc);
-}
+    function reveal(r, cl) {
+      if (r < 0 || r >= CFG[level].r || cl < 0 || cl >= CFG[level].c || revealed[r][cl] || flagged[r][cl]) return;
+      revealed[r][cl] = true;
+      if (board[r][cl] === 0) for (let dr = -1; dr <= 1; dr++)for (let dc = -1; dc <= 1; dc++)if (dr || dc) reveal(r + dr, cl + dc);
+    }
 
-function flagCell(r,cl){
-  if(gameOver||gameWon||revealed[r][cl]) return;
-  flagged[r][cl]=!flagged[r][cl]; flagCount+=flagged[r][cl]?1:-1; updateUI(); render();
-}
+    function flagCell(r, cl) {
+      if (gameOver || gameWon || revealed[r][cl]) return;
+      flagged[r][cl] = !flagged[r][cl]; flagCount += flagged[r][cl] ? 1 : -1; updateUI(); render();
+    }
 
-function checkWin(){
-  let cnt=0; const c=CFG[level];
-  for(let r=0;r<c.r;r++)for(let cl=0;cl<c.c;cl++)if(revealed[r][cl])cnt++;
-  if(cnt===c.r*c.c-totalMines) gameWon=true;
-}
+    function checkWin() {
+      let cnt = 0; const c = CFG[level];
+      for (let r = 0; r < c.r; r++)for (let cl = 0; cl < c.c; cl++)if (revealed[r][cl]) cnt++;
+      if (cnt === c.r * c.c - totalMines) gameWon = true;
+    }
 
-function endGame(){
-  if(timerInterval) clearInterval(timerInterval);
-  overlay.classList.add('show');
-  const el=Math.floor((Date.now()-(startTime||Date.now()))/1000);
-  if(gameOver){overlay.classList.add('lose');overlay.querySelector('h2').textContent='💥 踩到雷了!';overlay.querySelector('p').textContent='游戏结束';}
-  else if(gameWon){overlay.classList.add('win');overlay.querySelector('h2').textContent='🎉 恭喜获胜!';overlay.querySelector('p').textContent='用时: '+el+' 秒';}
-}
+    function endGame() {
+      if (timerInterval) clearInterval(timerInterval);
+      overlay.classList.add('show');
+      const el = Math.floor((Date.now() - (startTime || Date.now())) / 1000);
+      if (gameOver) { overlay.classList.add('lose'); overlay.querySelector('h2').textContent = '💥 踩到雷了!'; overlay.querySelector('p').textContent = '游戏结束'; }
+      else if (gameWon) { overlay.classList.add('win'); overlay.querySelector('h2').textContent = '🎉 恭喜获胜!'; overlay.querySelector('p').textContent = '用时: ' + el + ' 秒'; }
+    }
 
-function updateUI(){flagEl.textContent=flagCount;mineEl.textContent=totalMines;if(!startTime)timeEl.textContent='0';}
+    function updateUI() { flagEl.textContent = flagCount; mineEl.textContent = totalMines; if (!startTime) timeEl.textContent = '0'; }
 
-function render(){
-  const c=CFG[level]; boardEl.style.gridTemplateColumns=`repeat(${c.c},28px)`; boardEl.innerHTML='';
-  for(let r=0;r<c.r;r++)for(let cl=0;cl<c.c;cl++){
-    const cell=document.createElement('button');cell.className='cell';
-    if(revealed[r][cl]){cell.classList.add('revealed');if(board[r][cl]===-1){cell.classList.add('mine');cell.textContent='💣';}else if(board[r][cl]>0){cell.textContent=board[r][cl];cell.classList.add('num'+board[r][cl]);}}
-    else if(flagged[r][cl]){cell.classList.add('flagged');cell.textContent='🚩';}
-    cell.addEventListener('click',()=>clickCell(r,cl));
-    cell.addEventListener('contextmenu',e=>{e.preventDefault();flagCell(r,cl);});
-    boardEl.appendChild(cell);
-  }
-}
+    function render() {
+      const c = CFG[level]; boardEl.style.gridTemplateColumns = `repeat(${c.c},28px)`; boardEl.innerHTML = '';
+      for (let r = 0; r < c.r; r++)for (let cl = 0; cl < c.c; cl++) {
+        const cell = document.createElement('button'); cell.className = 'cell';
+        if (revealed[r][cl]) { cell.classList.add('revealed'); if (board[r][cl] === -1) { cell.classList.add('mine'); cell.textContent = '💣'; } else if (board[r][cl] > 0) { cell.textContent = board[r][cl]; cell.classList.add('num' + board[r][cl]); } }
+        else if (flagged[r][cl]) { cell.classList.add('flagged'); cell.textContent = '🚩'; }
+        cell.addEventListener('click', () => clickCell(r, cl));
+        cell.addEventListener('contextmenu', e => { e.preventDefault(); flagCell(r, cl); });
+        boardEl.appendChild(cell);
+      }
+    }
 
-document.querySelectorAll('.btn-lvl').forEach(b=>b.addEventListener('click',()=>init(b.dataset.lvl)));
-document.getElementById('btn-restart').addEventListener('click',()=>init());
-document.getElementById('overlay-btn').addEventListener('click',()=>init());
+    document.querySelectorAll('.btn-lvl').forEach(b => b.addEventListener('click', () => init(b.dataset.lvl)));
+    document.getElementById('btn-restart').addEventListener('click', () => init());
+    document.getElementById('overlay-btn').addEventListener('click', () => init());
 
-init();
-</script>
+    init();
+  </script>
 </body>
+
 </html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,42 +10,236 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../style.css">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif; }
-        :root { --primary-gradient: linear-gradient(135deg, #1a1a1a 0%, #4a4a4a 100%); --text-primary: #1a1a1a; --text-secondary: #525252; --text-muted: #737373; --background-light: #fafafa; --background-dark: #1a1a1a; --card-background: #ffffff; --shadow: 0 10px 30px rgba(0,0,0,0.08); }
-        body { width: 100vw; min-height: 100vh; margin: 0; padding: 0; background: var(--background-light); overflow-x: hidden; color: var(--text-primary); }
-        .detail-nav { position: fixed; top: 0; left: 0; width: 100%; height: 72px; background: rgba(250,250,250,0.95); backdrop-filter: blur(20px); display: flex; align-items: center; justify-content: space-between; padding: 0 60px; z-index: 100; border-bottom: 1px solid #e5e5e5; }
-        .back-btn { display: inline-flex; align-items: center; gap: 10px; color: var(--text-secondary); text-decoration: none; font-size: 15px; font-weight: 500; transition: all 0.3s ease; padding: 10px 20px; border-radius: 30px; }
-        .back-btn:hover { color: var(--text-primary); background: #e5e5e5; }
-        .back-btn i { font-size: 14px; transition: transform 0.3s ease; } .back-btn:hover i { transform: translateX(-4px); }
-        .nav-title { font-size: 16px; font-weight: 600; } .nav-placeholder { width: 120px; }
-        .detail-hero { padding: 140px 80px 80px; background: linear-gradient(180deg, var(--background-dark) 0%, var(--background-light) 100%); color: #fff; min-height: 50vh; display: flex; flex-direction: column; justify-content: flex-end; }
-        .detail-hero-tags { display: flex; gap: 12px; margin-bottom: 24px; }
-        .detail-tag { padding: 8px 16px; background: rgba(255,255,255,0.15); border-radius: 20px; font-size: 13px; font-weight: 500; }
-        .detail-hero-title { font-size: 56px; font-weight: 700; margin-bottom: 16px; line-height: 1.2; }
-        .detail-hero-description { font-size: 18px; color: rgba(255,255,255,0.8); max-width: 700px; line-height: 1.6; }
-        .detail-content { padding: 80px; max-width: 1200px; margin: 0 auto; display: flex; gap: 60px; }
-        .detail-content .main-img { flex: 1; max-width: 60%; }
-        .detail-content .main-img img { width: 100%; border-radius: 20px; box-shadow: var(--shadow); }
-        .detail-content .side-info { flex: 1; min-width: 280px; }
-        .info-block { background: var(--card-background); border-radius: 16px; padding: 32px; box-shadow: var(--shadow); margin-bottom: 24px; }
-        .info-block h3 { font-size: 18px; font-weight: 600; margin-bottom: 16px; }
-        .info-block p { color: var(--text-secondary); line-height: 1.8; }
-        .tag-row { display: flex; gap: 8px; flex-wrap: wrap; }
-        .tag-row span { padding: 6px 14px; background: #e5e5e5; border-radius: 20px; font-size: 12px; color: var(--text-primary); }
-        @media (max-width: 768px) { .detail-nav { padding: 0 20px; } .detail-hero { padding: 120px 24px 60px; } .detail-hero-title { font-size: 36px; } .detail-content { padding: 40px 24px; flex-direction: column; } .detail-content .main-img { max-width: 100%; } }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        :root {
+            --primary-gradient: linear-gradient(135deg, #1a1a1a 0%, #4a4a4a 100%);
+            --text-primary: #1a1a1a;
+            --text-secondary: #525252;
+            --text-muted: #737373;
+            --background-light: #fafafa;
+            --background-dark: #1a1a1a;
+            --card-background: #ffffff;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        body {
+            width: 100vw;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            background: var(--background-light);
+            overflow-x: hidden;
+            color: var(--text-primary);
+        }
+
+        .detail-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 72px;
+            background: rgba(250, 250, 250, 0.95);
+            backdrop-filter: blur(20px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 60px;
+            z-index: 100;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 10px 20px;
+            border-radius: 30px;
+        }
+
+        .back-btn:hover {
+            color: var(--text-primary);
+            background: #e5e5e5;
+        }
+
+        .back-btn i {
+            font-size: 14px;
+            transition: transform 0.3s ease;
+        }
+
+        .back-btn:hover i {
+            transform: translateX(-4px);
+        }
+
+        .nav-title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .nav-placeholder {
+            width: 120px;
+        }
+
+        .detail-hero {
+            padding: 140px 80px 80px;
+            background: linear-gradient(180deg, var(--background-dark) 0%, var(--background-light) 100%);
+            color: #fff;
+            min-height: 50vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .detail-hero-tags {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .detail-tag {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .detail-hero-title {
+            font-size: 56px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .detail-hero-description {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 700px;
+            line-height: 1.6;
+        }
+
+        .detail-content {
+            padding: 80px;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 60px;
+        }
+
+        .detail-content .main-img {
+            flex: 1;
+            max-width: 60%;
+        }
+
+        .detail-content .main-img img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .detail-content .side-info {
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .info-block {
+            background: var(--card-background);
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+        }
+
+        .info-block h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .info-block p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .tag-row {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tag-row span {
+            padding: 6px 14px;
+            background: #e5e5e5;
+            border-radius: 20px;
+            font-size: 12px;
+            color: var(--text-primary);
+        }
+
+        @media (max-width: 768px) {
+            .detail-nav {
+                padding: 0 20px;
+            }
+
+            .detail-hero {
+                padding: 120px 24px 60px;
+            }
+
+            .detail-hero-title {
+                font-size: 36px;
+            }
+
+            .detail-content {
+                padding: 40px 24px;
+                flex-direction: column;
+            }
+
+            .detail-content .main-img {
+                max-width: 100%;
+            }
+        }
     </style>
 </head>
+
 <body>
-    <nav class="detail-nav"><a href="../works.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i><span>返回作品集</span></a><div class="nav-title">Minimalist CC</div><div class="nav-placeholder"></div></nav>
-    <header class="detail-hero"><div class="detail-hero-tags"><span class="detail-tag">设计类型</span><span class="detail-tag">页面设计</span></div><h1 class="detail-hero-title">Minimalist CC</h1><p class="detail-hero-description">极简主义品牌官网重设计项目，以克制的美学语言重塑品牌在线形象，强调留白、字体排版与视觉层次。</p></header>
+    <nav class="detail-nav"><a href="../works.html" class="back-btn"><i
+                class="fa-solid fa-arrow-left"></i><span>返回作品集</span></a>
+        <div class="nav-title">Minimalist CC</div>
+        <div class="nav-placeholder"></div>
+    </nav>
+    <header class="detail-hero">
+        <div class="detail-hero-tags"><span class="detail-tag">设计类型</span><span class="detail-tag">页面设计</span></div>
+        <h1 class="detail-hero-title">Minimalist CC</h1>
+        <p class="detail-hero-description">极简主义品牌官网重设计项目，以克制的美学语言重塑品牌在线形象，强调留白、字体排版与视觉层次。</p>
+    </header>
     <main class="detail-content">
-        <div class="main-img"><img src="../img/Restyled Page Minimalist CC Brand Website.png" alt="Minimalist CC Brand Website"></div>
+        <div class="main-img"><img src="../img/Restyled Page Minimalist CC Brand Website.png"
+                alt="Minimalist CC Brand Website"></div>
         <div class="side-info">
-            <div class="info-block"><h3>设计理念</h3><p>以"Less is More"为核心理念，通过精准的版式设计、克制的色彩运用和清爽的留白空间，为品牌构建一个纯粹而富有格调的线上形象。每一个像素都经过深思熟虑，去除一切多余元素。</p></div>
-            <div class="info-block"><h3>设计标签</h3><div class="tag-row"><span>极简主义</span><span>品牌设计</span><span>页面设计</span><span>版式布局</span></div></div>
-            <div class="info-block"><h3>技术信息</h3><p>设计工具：Adobe Photoshop / Figma<br>风格：极简主义 + 现代品牌<br>配色：黑白灰主调</p></div>
+            <div class="info-block">
+                <h3>设计理念</h3>
+                <p>以"Less is More"为核心理念，通过精准的版式设计、克制的色彩运用和清爽的留白空间，为品牌构建一个纯粹而富有格调的线上形象。每一个像素都经过深思熟虑，去除一切多余元素。</p>
+            </div>
+            <div class="info-block">
+                <h3>设计标签</h3>
+                <div class="tag-row"><span>极简主义</span><span>品牌设计</span><span>页面设计</span><span>版式布局</span></div>
+            </div>
+            <div class="info-block">
+                <h3>技术信息</h3>
+                <p>设计工具：Adobe Photoshop / Figma<br>风格：极简主义 + 现代品牌<br>配色：黑白灰主调</p>
+            </div>
         </div>
     </main>
-    <script>document.addEventListener('DOMContentLoaded',()=>{anime.timeline().add({targets:'.detail-hero-tags .detail-tag',opacity:[0,1],translateY:[20,0],delay:anime.stagger(100),duration:600,easing:'easeOutQuad'}).add({targets:'.detail-hero-title',opacity:[0,1],translateY:[40,0],duration:800,easing:'easeOutQuad'},'-=400').add({targets:'.detail-hero-description',opacity:[0,1],translateY:[30,0],duration:800,easing:'easeOutQuad'},'-=600');});</script>
+    <script>document.addEventListener('DOMContentLoaded', () => { anime.timeline().add({ targets: '.detail-hero-tags .detail-tag', opacity: [0, 1], translateY: [20, 0], delay: anime.stagger(100), duration: 600, easing: 'easeOutQuad' }).add({ targets: '.detail-hero-title', opacity: [0, 1], translateY: [40, 0], duration: 800, easing: 'easeOutQuad' }, '-=400').add({ targets: '.detail-hero-description', opacity: [0, 1], translateY: [30, 0], duration: 800, easing: 'easeOutQuad' }, '-=600'); });</script>
 </body>
+
 </html>

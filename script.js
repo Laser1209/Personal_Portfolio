@@ -1135,6 +1135,24 @@ function animateBinaryText() {
     }, 1000);
 }
 
+// ========== 导航栏滚动效果 ==========
+function initNavbarScroll() {
+    const navbar = document.querySelector('.navbar');
+    if (!navbar) return;
+    let lastScrollY = window.scrollY;
+    window.addEventListener('scroll', () => {
+        const currentScrollY = window.scrollY;
+        if (currentScrollY > 80) {
+            navbar.style.padding = '0.5rem calc(2vw + 1rem)';
+            navbar.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.15)';
+        } else {
+            navbar.style.padding = '1rem calc(2vw + 1rem)';
+            navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.05)';
+        }
+        lastScrollY = currentScrollY;
+    }, { passive: true });
+}
+
 // ========== 窗口加载完成 ==========
 window.addEventListener('load', () => {
     window.dispatchEvent(new Event('scroll'));

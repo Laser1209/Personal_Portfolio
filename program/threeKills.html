@@ -1,134 +1,250 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>跳一跳</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:linear-gradient(135deg,#1a1a2e,#16213e);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'Segoe UI',Arial,sans-serif}
-.game-wrapper{background:rgba(255,255,255,0.1);border-radius:20px;padding:20px;backdrop-filter:blur(10px);box-shadow:0 8px 32px rgba(0,0,0,0.3)}
-.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;color:#fff;flex-wrap:wrap;gap:10px}
-.info{display:flex;gap:12px}
-.info-item{background:rgba(0,0,0,0.3);padding:6px 14px;border-radius:8px;font-weight:bold;font-size:14px}
-.btn{padding:10px 18px;border:none;border-radius:8px;cursor:pointer;font-weight:bold;transition:all 0.3s;color:#fff;background:linear-gradient(45deg,#00ff88,#00cc6a)}
-.canvas-wrap{position:relative;border-radius:12px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.4)}
-canvas{display:block}
-#pbar{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);width:200px;height:6px;background:rgba(0,0,0,0.3);border-radius:3px;overflow:hidden}
-#pfill{height:100%;background:linear-gradient(90deg,#00ff88,#ffaa00,#ff4444);border-radius:3px;width:0}
-.overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);display:none;flex-direction:column;align-items:center;justify-content:center;z-index:10}
-.overlay.show{display:flex}
-.overlay h2{color:#00ff88;font-size:28px;margin-bottom:10px}
-.overlay p{color:#fff;margin-bottom:15px;font-size:16px}
-.tip{color:rgba(255,255,255,0.6);font-size:12px;text-align:center;margin-top:10px}
-</style>
-</head>
-<body>
-<div class="game-wrapper">
-  <div class="header">
-    <div class="info">
-      <span class="info-item">得分: <span id="score">0</span></span>
-      <span class="info-item">最高: <span id="highscore">0</span></span>
-    </div>
-    <h1 style="color:#fff;margin:0;font-size:22px">跳一跳</h1>
-    <button class="btn" id="btn-start">开始</button>
-  </div>
-  <div class="canvas-wrap" style="width:400px;height:500px">
-    <canvas id="canvas" width="400" height="500"></canvas>
-    <div id="pbar"><div id="pfill"></div></div>
-    <div class="overlay" id="overlay"><h2 id="omsg">开始游戏</h2><p id="odet"></p><button class="btn" id="obtn">开始</button></div>
-  </div>
-  <div class="tip">按住鼠标/触屏蓄力，松开跳跃 | 跳到中心方块 +2分</div>
-</div>
-
-<script>
-'use strict';
-
-const canvas=document.getElementById('canvas'),ctx=canvas.getContext('2d');
-const W=400,H=500,PS=36,G=0.4,JP=12;
-
-let platforms,px,py,vx,vy,charge,charging,jumping,score,highScore,playing,gameOver,animId;
-
-function initPlats(){
-  platforms=[{x:50,y:420,w:80,h:20,center:true}];
-  let lx=150,ly=420;
-  for(let i=0;i<12;i++){const w=40+Math.random()*50,l=lx+w,gap=60+Math.random()*80,yo=-30+Math.random()*60;platforms.push({x:lx+gap,y:Math.max(150,Math.min(450,ly+yo)),w,center:Math.random()<0.3});lx=lx+gap+w;ly=ly+yo;}
-}
-
-function init(){
-  initPlats(); px=100;py=380;vx=0;vy=0;charge=0;charging=false;jumping=false;score=0;
-  highScore=parseInt(localStorage.getItem('jumpHighScore')||'0',10);
-  playing=false; gameOver=false;
-  document.getElementById('score').textContent='0';
-  document.getElementById('highscore').textContent=highScore;
-  document.getElementById('overlay').classList.add('show');
-  document.getElementById('omsg').textContent='开始游戏';
-  document.getElementById('obtn').textContent='开始';
-  document.getElementById('pfill').style.width='0%';
-  draw();
-}
-
-function start(){playing=true;gameOver=false;score=0;px=100;py=380;vx=0;vy=0;jumping=false;platforms=[];initPlats();document.getElementById('overlay').classList.remove('show');draw();}
-
-function update(){
-  if(!jumping||gameOver||!playing) return;
-  vy-=G; py+=vy; px+=vx;
-  if(px<-PS){px=W; platforms.shift(); genMore();}
-  if(py<-PS||py>H+PS){end();return;}
-  for(const p of platforms){
-    if(px+PS>p.x&&px<p.x+p.w&&py<=p.y+p.h&&py+PS>=p.y&&vy<0){
-      py=p.y+p.h; vx=0;vy=0;jumping=false;
-      if(p.center) score+=2; else score+=1;
-      break;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>跳一跳</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box
     }
-  }
-}
 
-function genMore(){
-  const last=platforms[platforms.length-1];
-  for(let i=0;i<3;i++){const w=40+Math.random()*50;platforms.push({x:last.x+last.w+60+Math.random()*80,y:Math.max(150,Math.min(450,last.y-30+Math.random()*60)),w,center:Math.random()<0.3});}
-}
+    body {
+      background: linear-gradient(135deg, #1a1a2e, #16213e);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Segoe UI', Arial, sans-serif
+    }
 
-function end(){gameOver=true;playing=false;if(score>highScore){highScore=score;localStorage.setItem('jumpHighScore',highScore);}document.getElementById('overlay').classList.add('show');document.getElementById('omsg').textContent='游戏结束';document.getElementById('odet').textContent='得分: '+score+' | 最高: '+highScore;document.getElementById('obtn').textContent='再来一局';}
+    .game-wrapper {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 20px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3)
+    }
 
-function draw(){
-  ctx.clearRect(0,0,W,H);
-  const bg=ctx.createLinearGradient(0,0,0,H); bg.addColorStop(0,'#1a1a4e');bg.addColorStop(0.7,'#2a1a4e');bg.addColorStop(1,'#3a1a2e');
-  ctx.fillStyle=bg; ctx.fillRect(0,0,W,H);
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      color: #fff;
+      flex-wrap: wrap;
+      gap: 10px
+    }
 
-  platforms.forEach(p=>{
-    ctx.fillStyle=p.center?'#ffd700':'#e0e0e0';
-    ctx.beginPath(); ctx.roundRect(p.x,p.y,p.w,p.h,4); ctx.fill();
-    ctx.strokeStyle='rgba(0,0,0,0.3)'; ctx.lineWidth=1; ctx.stroke();
-    if(p.center){ctx.fillStyle='#ffaa00';ctx.beginPath();ctx.arc(p.x+p.w/2,p.y+p.h/2,4,0,Math.PI*2);ctx.fill();}
-  });
+    .info {
+      display: flex;
+      gap: 12px
+    }
 
-  const g=ctx.createLinearGradient(px,py,px,py+PS);g.addColorStop(0,'#00ff88');g.addColorStop(1,'#00cc6a');
-  ctx.fillStyle=g; ctx.beginPath(); ctx.roundRect(px,py,PS,PS,8); ctx.fill();
-  ctx.fillStyle='#fff';ctx.font='bold 14px sans-serif';ctx.textAlign='center';ctx.fillText('跳',px+PS/2,py+PS/2+5);
+    .info-item {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 14px
+    }
 
-  document.getElementById('score').textContent=score;
-  document.getElementById('highscore').textContent=highScore;
-  document.getElementById('pfill').style.width=charge+'%';
-}
+    .btn {
+      padding: 10px 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s;
+      color: #fff;
+      background: linear-gradient(45deg, #00ff88, #00cc6a)
+    }
 
-function loop(){if(jumping&&playing){update();if(!gameOver)draw();}animId=requestAnimationFrame(loop);}
+    .canvas-wrap {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4)
+    }
 
-// Input
-canvas.addEventListener('mousedown',e=>{e.preventDefault();if(!playing||gameOver)return;charging=true;charge=0;});
-canvas.addEventListener('mousemove',()=>{if(charging){charge=Math.min(charge+2,100);document.getElementById('pfill').style.width=charge+'%';}});
-canvas.addEventListener('mouseup',()=>{if(!charging)return;charging=false;const p=charge/100;vy=JP*p*Math.sin(-Math.PI/4);vx=-JP*p*Math.cos(-Math.PI/4)*0.5;jumping=true;charge=0;document.getElementById('pfill').style.width='0%';});
-canvas.addEventListener('mouseleave',()=>{if(charging){charging=false;const p=charge/100;vy=JP*p*Math.sin(-Math.PI/4);vx=-JP*p*Math.cos(-Math.PI/4)*0.5;jumping=true;charge=0;document.getElementById('pfill').style.width='0%';}});
+    canvas {
+      display: block
+    }
 
-canvas.addEventListener('touchstart',e=>{e.preventDefault();if(!playing||gameOver)return;charging=true;charge=0;},{passive:false});
-canvas.addEventListener('touchmove',e=>{e.preventDefault();if(charging){charge=Math.min(charge+2,100);document.getElementById('pfill').style.width=charge+'%';}},{passive:false});
-canvas.addEventListener('touchend',e=>{e.preventDefault();if(!charging)return;charging=false;const p=charge/100;vy=JP*p*Math.sin(-Math.PI/4);vx=-JP*p*Math.cos(-Math.PI/4)*0.5;jumping=true;charge=0;document.getElementById('pfill').style.width='0%';});
+    #pbar {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 200px;
+      height: 6px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 3px;
+      overflow: hidden
+    }
 
-document.getElementById('btn-start').addEventListener('click',start);
-document.getElementById('obtn').addEventListener('click',start);
+    #pfill {
+      height: 100%;
+      background: linear-gradient(90deg, #00ff88, #ffaa00, #ff4444);
+      border-radius: 3px;
+      width: 0
+    }
 
-init();
-animId=requestAnimationFrame(loop);
-</script>
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 10
+    }
+
+    .overlay.show {
+      display: flex
+    }
+
+    .overlay h2 {
+      color: #00ff88;
+      font-size: 28px;
+      margin-bottom: 10px
+    }
+
+    .overlay p {
+      color: #fff;
+      margin-bottom: 15px;
+      font-size: 16px
+    }
+
+    .tip {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 12px;
+      text-align: center;
+      margin-top: 10px
+    }
+  </style>
+</head>
+
+<body>
+  <div class="game-wrapper">
+    <div class="header">
+      <div class="info">
+        <span class="info-item">得分: <span id="score">0</span></span>
+        <span class="info-item">最高: <span id="highscore">0</span></span>
+      </div>
+      <h1 style="color:#fff;margin:0;font-size:22px">跳一跳</h1>
+      <button class="btn" id="btn-start">开始</button>
+    </div>
+    <div class="canvas-wrap" style="width:400px;height:500px">
+      <canvas id="canvas" width="400" height="500"></canvas>
+      <div id="pbar">
+        <div id="pfill"></div>
+      </div>
+      <div class="overlay" id="overlay">
+        <h2 id="omsg">开始游戏</h2>
+        <p id="odet"></p><button class="btn" id="obtn">开始</button>
+      </div>
+    </div>
+    <div class="tip">按住鼠标/触屏蓄力，松开跳跃 | 跳到中心方块 +2分</div>
+  </div>
+
+  <script>
+    'use strict';
+
+    const canvas = document.getElementById('canvas'), ctx = canvas.getContext('2d');
+    const W = 400, H = 500, PS = 36, G = 0.4, JP = 12;
+
+    let platforms, px, py, vx, vy, charge, charging, jumping, score, highScore, playing, gameOver, animId;
+
+    function initPlats() {
+      platforms = [{ x: 50, y: 420, w: 80, h: 20, center: true }];
+      let lx = 150, ly = 420;
+      for (let i = 0; i < 12; i++) { const w = 40 + Math.random() * 50, l = lx + w, gap = 60 + Math.random() * 80, yo = -30 + Math.random() * 60; platforms.push({ x: lx + gap, y: Math.max(150, Math.min(450, ly + yo)), w, center: Math.random() < 0.3 }); lx = lx + gap + w; ly = ly + yo; }
+    }
+
+    function init() {
+      initPlats(); px = 100; py = 380; vx = 0; vy = 0; charge = 0; charging = false; jumping = false; score = 0;
+      highScore = parseInt(localStorage.getItem('jumpHighScore') || '0', 10);
+      playing = false; gameOver = false;
+      document.getElementById('score').textContent = '0';
+      document.getElementById('highscore').textContent = highScore;
+      document.getElementById('overlay').classList.add('show');
+      document.getElementById('omsg').textContent = '开始游戏';
+      document.getElementById('obtn').textContent = '开始';
+      document.getElementById('pfill').style.width = '0%';
+      draw();
+    }
+
+    function start() { playing = true; gameOver = false; score = 0; px = 100; py = 380; vx = 0; vy = 0; jumping = false; platforms = []; initPlats(); document.getElementById('overlay').classList.remove('show'); draw(); }
+
+    function update() {
+      if (!jumping || gameOver || !playing) return;
+      vy -= G; py += vy; px += vx;
+      if (px < -PS) { px = W; platforms.shift(); genMore(); }
+      if (py < -PS || py > H + PS) { end(); return; }
+      for (const p of platforms) {
+        if (px + PS > p.x && px < p.x + p.w && py <= p.y + p.h && py + PS >= p.y && vy < 0) {
+          py = p.y + p.h; vx = 0; vy = 0; jumping = false;
+          if (p.center) score += 2; else score += 1;
+          break;
+        }
+      }
+    }
+
+    function genMore() {
+      const last = platforms[platforms.length - 1];
+      for (let i = 0; i < 3; i++) { const w = 40 + Math.random() * 50; platforms.push({ x: last.x + last.w + 60 + Math.random() * 80, y: Math.max(150, Math.min(450, last.y - 30 + Math.random() * 60)), w, center: Math.random() < 0.3 }); }
+    }
+
+    function end() { gameOver = true; playing = false; if (score > highScore) { highScore = score; localStorage.setItem('jumpHighScore', highScore); } document.getElementById('overlay').classList.add('show'); document.getElementById('omsg').textContent = '游戏结束'; document.getElementById('odet').textContent = '得分: ' + score + ' | 最高: ' + highScore; document.getElementById('obtn').textContent = '再来一局'; }
+
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+      const bg = ctx.createLinearGradient(0, 0, 0, H); bg.addColorStop(0, '#1a1a4e'); bg.addColorStop(0.7, '#2a1a4e'); bg.addColorStop(1, '#3a1a2e');
+      ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+
+      platforms.forEach(p => {
+        ctx.fillStyle = p.center ? '#ffd700' : '#e0e0e0';
+        ctx.beginPath(); ctx.roundRect(p.x, p.y, p.w, p.h, 4); ctx.fill();
+        ctx.strokeStyle = 'rgba(0,0,0,0.3)'; ctx.lineWidth = 1; ctx.stroke();
+        if (p.center) { ctx.fillStyle = '#ffaa00'; ctx.beginPath(); ctx.arc(p.x + p.w / 2, p.y + p.h / 2, 4, 0, Math.PI * 2); ctx.fill(); }
+      });
+
+      const g = ctx.createLinearGradient(px, py, px, py + PS); g.addColorStop(0, '#00ff88'); g.addColorStop(1, '#00cc6a');
+      ctx.fillStyle = g; ctx.beginPath(); ctx.roundRect(px, py, PS, PS, 8); ctx.fill();
+      ctx.fillStyle = '#fff'; ctx.font = 'bold 14px sans-serif'; ctx.textAlign = 'center'; ctx.fillText('跳', px + PS / 2, py + PS / 2 + 5);
+
+      document.getElementById('score').textContent = score;
+      document.getElementById('highscore').textContent = highScore;
+      document.getElementById('pfill').style.width = charge + '%';
+    }
+
+    function loop() { if (jumping && playing) { update(); if (!gameOver) draw(); } animId = requestAnimationFrame(loop); }
+
+    // Input
+    canvas.addEventListener('mousedown', e => { e.preventDefault(); if (!playing || gameOver) return; charging = true; charge = 0; });
+    canvas.addEventListener('mousemove', () => { if (charging) { charge = Math.min(charge + 2, 100); document.getElementById('pfill').style.width = charge + '%'; } });
+    canvas.addEventListener('mouseup', () => { if (!charging) return; charging = false; const p = charge / 100; vy = JP * p * Math.sin(-Math.PI / 4); vx = -JP * p * Math.cos(-Math.PI / 4) * 0.5; jumping = true; charge = 0; document.getElementById('pfill').style.width = '0%'; });
+    canvas.addEventListener('mouseleave', () => { if (charging) { charging = false; const p = charge / 100; vy = JP * p * Math.sin(-Math.PI / 4); vx = -JP * p * Math.cos(-Math.PI / 4) * 0.5; jumping = true; charge = 0; document.getElementById('pfill').style.width = '0%'; } });
+
+    canvas.addEventListener('touchstart', e => { e.preventDefault(); if (!playing || gameOver) return; charging = true; charge = 0; }, { passive: false });
+    canvas.addEventListener('touchmove', e => { e.preventDefault(); if (charging) { charge = Math.min(charge + 2, 100); document.getElementById('pfill').style.width = charge + '%'; } }, { passive: false });
+    canvas.addEventListener('touchend', e => { e.preventDefault(); if (!charging) return; charging = false; const p = charge / 100; vy = JP * p * Math.sin(-Math.PI / 4); vx = -JP * p * Math.cos(-Math.PI / 4) * 0.5; jumping = true; charge = 0; document.getElementById('pfill').style.width = '0%'; });
+
+    document.getElementById('btn-start').addEventListener('click', start);
+    document.getElementById('obtn').addEventListener('click', start);
+
+    init();
+    animId = requestAnimationFrame(loop);
+  </script>
 </body>
+
 </html>

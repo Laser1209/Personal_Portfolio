@@ -1,139 +1,401 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>QQ音乐</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:linear-gradient(180deg,#0d1b2a,#1b2838);min-height:100vh;display:flex;align-items:center;justify-content:center;font-family:'Microsoft YaHei','PingFang SC',sans-serif}
-.player{width:380px;max-height:720px;background:linear-gradient(180deg,#1a1a2e,#16213e);border-radius:16px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.5);display:flex;flex-direction:column}
-.player-header{display:flex;justify-content:space-between;align-items:center;padding:16px 20px 8px;color:rgba(255,255,255,0.8)}
-.player-header .title{font-size:14px;display:flex;align-items:center;gap:8px}
-.win-btn{display:flex;gap:6px}.wb{width:12px;height:12px;border-radius:50%}.wb.c{background:#ff5f57}.wb.m{background:#ffbd2e}.wb.x{background:#28ca41}
-.album-section{display:flex;flex-direction:column;align-items:center;padding:10px 30px 16px}
-.album-cover{width:200px;height:200px;background:linear-gradient(135deg,#2a2a4e,#1a1a3e);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:72px;margin-bottom:16px;box-shadow:0 8px 32px rgba(0,0,0,0.4);border:4px solid rgba(255,255,255,0.1)}
-.album-cover.spin{animation:spin 8s linear infinite}
-@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
-.track-title{color:#fff;font-size:20px;font-weight:bold;text-align:center;margin-bottom:4px}
-.track-artist{color:rgba(255,255,255,0.6);font-size:14px;text-align:center}
-.lyrics-section{padding:0 30px 10px;color:rgba(255,255,255,0.7);font-size:13px;text-align:center;min-height:50px;line-height:1.8}
-.controls-section{padding:10px 20px 14px}
-.progress-bar{display:flex;align-items:center;gap:10px;margin-bottom:12px}
-.time{color:rgba(255,255,255,0.5);font-size:11px;min-width:35px}.time.r{text-align:right}
-.progress{flex:1;height:4px;background:rgba(255,255,255,0.15);border-radius:2px;cursor:pointer;position:relative}
-.progress-fill{height:100%;background:linear-gradient(90deg,#00cc66,#00ff88);border-radius:2px;width:0;transition:width 0.3s}
-.ctrl-btns{display:flex;align-items:center;justify-content:center;gap:24px}
-.cbtn{background:none;border:none;cursor:pointer;font-size:20px;color:rgba(255,255,255,0.8);transition:all 0.2s;width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:50%}
-.cbtn:hover{color:#fff;background:rgba(255,255,255,0.1)}
-.cbtn.play{font-size:28px;width:52px;height:52px;background:linear-gradient(135deg,#00cc66,#00ff88);color:#fff;box-shadow:0 4px 16px rgba(0,204,102,0.3)}
-.vol-section{display:flex;align-items:center;justify-content:flex-end;gap:8px;margin-top:10px}
-.vol-slider{width:80px;height:3px;appearance:none;background:rgba(255,255,255,0.15);border-radius:2px;outline:none;cursor:pointer}
-.vol-slider::-webkit-slider-thumb{appearance:none;width:12px;height:12px;background:#00ff88;border-radius:50%;cursor:pointer}
-.vicon{color:rgba(255,255,255,0.6);font-size:14px}
-.playlist{flex:1;overflow-y:auto;padding:0 10px 10px;max-height:260px}
-.playlist::-webkit-scrollbar{width:4px}.playlist::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.2);border-radius:2px}
-.pl-item{display:flex;align-items:center;padding:8px 12px;border-radius:8px;cursor:pointer;transition:background 0.2s;color:rgba(255,255,255,0.7)}
-.pl-item:hover{background:rgba(255,255,255,0.08)}.pl-item.active{background:rgba(0,204,102,0.15);color:#fff}
-.pl-item .idx{width:24px;font-size:12px;color:rgba(255,255,255,0.4)}.pl-item .info{flex:1;min-width:0}
-.pl-item .info .name{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.pl-item .info .artist{font-size:12px;color:rgba(255,255,255,0.4)}.pl-item .dur{font-size:12px;color:rgba(255,255,255,0.4)}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>QQ音乐</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box
+    }
+
+    body {
+      background: linear-gradient(180deg, #0d1b2a, #1b2838);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif
+    }
+
+    .player {
+      width: 380px;
+      max-height: 720px;
+      background: linear-gradient(180deg, #1a1a2e, #16213e);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      display: flex;
+      flex-direction: column
+    }
+
+    .player-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px 8px;
+      color: rgba(255, 255, 255, 0.8)
+    }
+
+    .player-header .title {
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px
+    }
+
+    .win-btn {
+      display: flex;
+      gap: 6px
+    }
+
+    .wb {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%
+    }
+
+    .wb.c {
+      background: #ff5f57
+    }
+
+    .wb.m {
+      background: #ffbd2e
+    }
+
+    .wb.x {
+      background: #28ca41
+    }
+
+    .album-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 10px 30px 16px
+    }
+
+    .album-cover {
+      width: 200px;
+      height: 200px;
+      background: linear-gradient(135deg, #2a2a4e, #1a1a3e);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 72px;
+      margin-bottom: 16px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      border: 4px solid rgba(255, 255, 255, 0.1)
+    }
+
+    .album-cover.spin {
+      animation: spin 8s linear infinite
+    }
+
+    @keyframes spin {
+      from {
+        transform: rotate(0)
+      }
+
+      to {
+        transform: rotate(360deg)
+      }
+    }
+
+    .track-title {
+      color: #fff;
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 4px
+    }
+
+    .track-artist {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 14px;
+      text-align: center
+    }
+
+    .lyrics-section {
+      padding: 0 30px 10px;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 13px;
+      text-align: center;
+      min-height: 50px;
+      line-height: 1.8
+    }
+
+    .controls-section {
+      padding: 10px 20px 14px
+    }
+
+    .progress-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px
+    }
+
+    .time {
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 11px;
+      min-width: 35px
+    }
+
+    .time.r {
+      text-align: right
+    }
+
+    .progress {
+      flex: 1;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 2px;
+      cursor: pointer;
+      position: relative
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #00cc66, #00ff88);
+      border-radius: 2px;
+      width: 0;
+      transition: width 0.3s
+    }
+
+    .ctrl-btns {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px
+    }
+
+    .cbtn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 20px;
+      color: rgba(255, 255, 255, 0.8);
+      transition: all 0.2s;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%
+    }
+
+    .cbtn:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.1)
+    }
+
+    .cbtn.play {
+      font-size: 28px;
+      width: 52px;
+      height: 52px;
+      background: linear-gradient(135deg, #00cc66, #00ff88);
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(0, 204, 102, 0.3)
+    }
+
+    .vol-section {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 10px
+    }
+
+    .vol-slider {
+      width: 80px;
+      height: 3px;
+      appearance: none;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 2px;
+      outline: none;
+      cursor: pointer
+    }
+
+    .vol-slider::-webkit-slider-thumb {
+      appearance: none;
+      width: 12px;
+      height: 12px;
+      background: #00ff88;
+      border-radius: 50%;
+      cursor: pointer
+    }
+
+    .vicon {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 14px
+    }
+
+    .playlist {
+      flex: 1;
+      overflow-y: auto;
+      padding: 0 10px 10px;
+      max-height: 260px
+    }
+
+    .playlist::-webkit-scrollbar {
+      width: 4px
+    }
+
+    .playlist::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 2px
+    }
+
+    .pl-item {
+      display: flex;
+      align-items: center;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+      color: rgba(255, 255, 255, 0.7)
+    }
+
+    .pl-item:hover {
+      background: rgba(255, 255, 255, 0.08)
+    }
+
+    .pl-item.active {
+      background: rgba(0, 204, 102, 0.15);
+      color: #fff
+    }
+
+    .pl-item .idx {
+      width: 24px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.4)
+    }
+
+    .pl-item .info {
+      flex: 1;
+      min-width: 0
+    }
+
+    .pl-item .info .name {
+      font-size: 14px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis
+    }
+
+    .pl-item .info .artist {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.4)
+    }
+
+    .pl-item .dur {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.4)
+    }
+  </style>
 </head>
+
 <body>
-<div class="player">
-  <div class="player-header">
-    <div class="title">🎵 QQ音乐</div>
-    <div class="win-btn"><span class="wb c"></span><span class="wb m"></span><span class="wb x"></span></div>
-  </div>
-  <div class="album-section">
-    <div class="album-cover" id="cover">🎵</div>
-    <div class="track-title" id="title"></div>
-    <div class="track-artist" id="artist"></div>
-  </div>
-  <div class="lyrics-section" id="lyrics">🎶</div>
-  <div class="controls-section">
-    <div class="progress-bar">
-      <span class="time" id="cur">00:00</span>
-      <div class="progress" id="pbar"><div class="progress-fill" id="pfill"></div></div>
-      <span class="time r" id="dur">00:00</span>
+  <div class="player">
+    <div class="player-header">
+      <div class="title">🎵 QQ音乐</div>
+      <div class="win-btn"><span class="wb c"></span><span class="wb m"></span><span class="wb x"></span></div>
     </div>
-    <div class="ctrl-btns">
-      <button class="cbtn" id="prev">⏮</button>
-      <button class="cbtn play" id="play">▶</button>
-      <button class="cbtn" id="next">⏭</button>
+    <div class="album-section">
+      <div class="album-cover" id="cover">🎵</div>
+      <div class="track-title" id="title"></div>
+      <div class="track-artist" id="artist"></div>
     </div>
-    <div class="vol-section">
-      <span class="vicon">🔊</span><input type="range" class="vol-slider" id="vol" min="0" max="100" value="70">
+    <div class="lyrics-section" id="lyrics">🎶</div>
+    <div class="controls-section">
+      <div class="progress-bar">
+        <span class="time" id="cur">00:00</span>
+        <div class="progress" id="pbar">
+          <div class="progress-fill" id="pfill"></div>
+        </div>
+        <span class="time r" id="dur">00:00</span>
+      </div>
+      <div class="ctrl-btns">
+        <button class="cbtn" id="prev">⏮</button>
+        <button class="cbtn play" id="play">▶</button>
+        <button class="cbtn" id="next">⏭</button>
+      </div>
+      <div class="vol-section">
+        <span class="vicon">🔊</span><input type="range" class="vol-slider" id="vol" min="0" max="100" value="70">
+      </div>
     </div>
+    <div class="playlist" id="plist"></div>
   </div>
-  <div class="playlist" id="plist"></div>
-</div>
 
-<script>
-'use strict';
+  <script>
+    'use strict';
 
-const playlist=[
-  {title:'晴天',artist:'周杰伦',album:'叶惠美',dur:'4:29'},
-  {title:'七里香',artist:'周杰伦',album:'七里香',dur:'4:58'},
-  {title:'起风了',artist:'买辣椒也用券',album:'起风了',dur:'5:25'},
-  {title:'夜曲',artist:'周杰伦',album:'十一月的萧邦',dur:'4:45'},
-  {title:'稻香',artist:'周杰伦',album:'魔杰座',dur:'3:40'},
-  {title:'青花瓷',artist:'周杰伦',album:'我很忙',dur:'3:59'},
-  {title:'年少有为',artist:'李荣浩',album:'年少有为',dur:'4:38'},
-  {title:'喜欢你',artist:'Beyond',album:'秘密警察',dur:'4:32'},
-  {title:'海阔天空',artist:'Beyond',album:'乐与怒',dur:'5:24'},
-  {title:'光年之外',artist:'邓紫棋',album:'新的心跳',dur:'4:12'}
-];
+    const playlist = [
+      { title: '晴天', artist: '周杰伦', album: '叶惠美', dur: '4:29' },
+      { title: '七里香', artist: '周杰伦', album: '七里香', dur: '4:58' },
+      { title: '起风了', artist: '买辣椒也用券', album: '起风了', dur: '5:25' },
+      { title: '夜曲', artist: '周杰伦', album: '十一月的萧邦', dur: '4:45' },
+      { title: '稻香', artist: '周杰伦', album: '魔杰座', dur: '3:40' },
+      { title: '青花瓷', artist: '周杰伦', album: '我很忙', dur: '3:59' },
+      { title: '年少有为', artist: '李荣浩', album: '年少有为', dur: '4:38' },
+      { title: '喜欢你', artist: 'Beyond', album: '秘密警察', dur: '4:32' },
+      { title: '海阔天空', artist: 'Beyond', album: '乐与怒', dur: '5:24' },
+      { title: '光年之外', artist: '邓紫棋', album: '新的心跳', dur: '4:12' }
+    ];
 
-const lyrics={
-  '晴天':['故事的小黄花 从出生那年就飘着','童年的荡秋千 随记忆一直晃到现在','Re So So Si Do Si La So La Si Si Si Si La Si La So','为你翘课的那一天 花落的那一天'],
-  '七里香':['窗外的麻雀 在电线杆上多嘴','你说这一句 很有夏天的感觉','手中的铅笔 在纸上来来回回','我用几行字形容你是我的谁'],
-  default:['暂无歌词']
-};
+    const lyrics = {
+      '晴天': ['故事的小黄花 从出生那年就飘着', '童年的荡秋千 随记忆一直晃到现在', 'Re So So Si Do Si La So La Si Si Si Si La Si La So', '为你翘课的那一天 花落的那一天'],
+      '七里香': ['窗外的麻雀 在电线杆上多嘴', '你说这一句 很有夏天的感觉', '手中的铅笔 在纸上来来回回', '我用几行字形容你是我的谁'],
+      default: ['暂无歌词']
+    };
 
-let idx=0,playing=false,curTime=0,volume=0.7,timerId;
+    let idx = 0, playing = false, curTime = 0, volume = 0.7, timerId;
 
-function fmtTime(s){const m=Math.floor(s/60),sec=Math.floor(s%60);return String(m).padStart(2,'0')+':'+String(sec).padStart(2,'0');}
-function parse(t){const p=t.split(':');return parseInt(p[0])*60+parseInt(p[1])||0;}
+    function fmtTime(s) { const m = Math.floor(s / 60), sec = Math.floor(s % 60); return String(m).padStart(2, '0') + ':' + String(sec).padStart(2, '0'); }
+    function parse(t) { const p = t.split(':'); return parseInt(p[0]) * 60 + parseInt(p[1]) || 0; }
 
-function render(){
-  const t=playlist[idx];
-  document.getElementById('title').textContent=t.title;
-  document.getElementById('artist').textContent=t.artist+' - '+t.album;
+    function render() {
+      const t = playlist[idx];
+      document.getElementById('title').textContent = t.title;
+      document.getElementById('artist').textContent = t.artist + ' - ' + t.album;
 
-  const cover=document.getElementById('cover');
-  if(playing) cover.classList.add('spin'); else cover.classList.remove('spin');
+      const cover = document.getElementById('cover');
+      if (playing) cover.classList.add('spin'); else cover.classList.remove('spin');
 
-  document.getElementById('play').textContent=playing?'⏸':'▶';
-  document.getElementById('dur').textContent=t.dur;
+      document.getElementById('play').textContent = playing ? '⏸' : '▶';
+      document.getElementById('dur').textContent = t.dur;
 
-  const d=parse(t.dur);
-  document.getElementById('cur').textContent=fmtTime(curTime);
-  document.getElementById('pfill').style.width=d>0?(curTime/d*100)+'%':'0%';
+      const d = parse(t.dur);
+      document.getElementById('cur').textContent = fmtTime(curTime);
+      document.getElementById('pfill').style.width = d > 0 ? (curTime / d * 100) + '%' : '0%';
 
-  const l=lyrics[t.title]||lyrics.default;
-  if(l.length&&playing){const i=Math.min(Math.floor((curTime/Math.max(d,1))*l.length),l.length-1);document.getElementById('lyrics').textContent=l[i];}
-  else if(!playing) document.getElementById('lyrics').textContent='⏸ 暂停中...';
+      const l = lyrics[t.title] || lyrics.default;
+      if (l.length && playing) { const i = Math.min(Math.floor((curTime / Math.max(d, 1)) * l.length), l.length - 1); document.getElementById('lyrics').textContent = l[i]; }
+      else if (!playing) document.getElementById('lyrics').textContent = '⏸ 暂停中...';
 
-  const pl=document.getElementById('plist');
-  pl.innerHTML=playlist.map((s,i)=>`<div class="pl-item${i===idx?' active':''}" data-i="${i}"><span class="idx">${String(i+1).padStart(2,'0')}</span><span class="info"><div class="name">${s.title}</div><div class="artist">${s.artist}</div></span><span class="dur">${s.dur}</span></div>`).join('');
-  pl.querySelectorAll('.pl-item').forEach(el=>el.addEventListener('click',()=>{idx=parseInt(el.dataset.i);curTime=0;playing=true;render();}));
-}
+      const pl = document.getElementById('plist');
+      pl.innerHTML = playlist.map((s, i) => `<div class="pl-item${i === idx ? ' active' : ''}" data-i="${i}"><span class="idx">${String(i + 1).padStart(2, '0')}</span><span class="info"><div class="name">${s.title}</div><div class="artist">${s.artist}</div></span><span class="dur">${s.dur}</span></div>`).join('');
+      pl.querySelectorAll('.pl-item').forEach(el => el.addEventListener('click', () => { idx = parseInt(el.dataset.i); curTime = 0; playing = true; render(); }));
+    }
 
-function togglePlay(){playing=!playing;render();}
-function nextSong(){idx=(idx+1)%playlist.length;curTime=0;playing=true;render();}
-function prevSong(){idx=(idx-1+playlist.length)%playlist.length;curTime=0;playing=true;render();}
+    function togglePlay() { playing = !playing; render(); }
+    function nextSong() { idx = (idx + 1) % playlist.length; curTime = 0; playing = true; render(); }
+    function prevSong() { idx = (idx - 1 + playlist.length) % playlist.length; curTime = 0; playing = true; render(); }
 
-document.getElementById('play').addEventListener('click',togglePlay);
-document.getElementById('next').addEventListener('click',nextSong);
-document.getElementById('prev').addEventListener('click',prevSong);
-document.getElementById('vol').addEventListener('input',e=>{volume=e.target.value/100;});
-document.getElementById('pbar').addEventListener('click',e=>{const r=e.currentTarget.getBoundingClientRect();curTime=(e.clientX-r.left)/r.width*parse(playlist[idx].dur);render();});
+    document.getElementById('play').addEventListener('click', togglePlay);
+    document.getElementById('next').addEventListener('click', nextSong);
+    document.getElementById('prev').addEventListener('click', prevSong);
+    document.getElementById('vol').addEventListener('input', e => { volume = e.target.value / 100; });
+    document.getElementById('pbar').addEventListener('click', e => { const r = e.currentTarget.getBoundingClientRect(); curTime = (e.clientX - r.left) / r.width * parse(playlist[idx].dur); render(); });
 
-timerId=setInterval(()=>{if(playing){const d=parse(playlist[idx].dur);if(curTime<d-0.5)curTime+=0.5;else playing=false;render();}},500);
+    timerId = setInterval(() => { if (playing) { const d = parse(playlist[idx].dur); if (curTime < d - 0.5) curTime += 0.5; else playing = false; render(); } }, 500);
 
-render();
-</script>
+    render();
+  </script>
 </body>
+
 </html>

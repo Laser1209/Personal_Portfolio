@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,56 +10,402 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../style.css">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif; }
-        :root { --primary-gradient: linear-gradient(135deg, #1a1a1a 0%, #4a4a4a 100%); --text-primary: #1a1a1a; --text-secondary: #525252; --text-muted: #737373; --background-light: #fafafa; --background-dark: #1a1a1a; --card-background: #ffffff; --shadow: 0 10px 30px rgba(0,0,0,0.08); }
-        body { width: 100vw; min-height: 100vh; margin: 0; padding: 0; background: var(--background-light); overflow-x: hidden; color: var(--text-primary); }
-        .detail-nav { position: fixed; top: 0; left: 0; width: 100%; height: 72px; background: rgba(250,250,250,0.95); backdrop-filter: blur(20px); display: flex; align-items: center; justify-content: space-between; padding: 0 60px; z-index: 100; border-bottom: 1px solid #e5e5e5; }
-        .back-btn { display: inline-flex; align-items: center; gap: 10px; color: var(--text-secondary); text-decoration: none; font-size: 15px; font-weight: 500; transition: all 0.3s ease; padding: 10px 20px; border-radius: 30px; }
-        .back-btn:hover { color: var(--text-primary); background: #e5e5e5; }
-        .back-btn i { font-size: 14px; transition: transform 0.3s ease; } .back-btn:hover i { transform: translateX(-4px); }
-        .nav-title { font-size: 16px; font-weight: 600; } .nav-placeholder { width: 120px; }
-        .detail-hero { padding: 140px 80px 80px; background: linear-gradient(180deg, var(--background-dark) 0%, var(--background-light) 100%); color: #fff; min-height: 50vh; display: flex; flex-direction: column; justify-content: flex-end; }
-        .detail-hero-tags { display: flex; gap: 12px; margin-bottom: 24px; }
-        .detail-tag { padding: 8px 16px; background: rgba(255,255,255,0.15); border-radius: 20px; font-size: 13px; font-weight: 500; }
-        .detail-hero-title { font-size: 56px; font-weight: 700; margin-bottom: 16px; line-height: 1.2; }
-        .detail-hero-description { font-size: 18px; color: rgba(255,255,255,0.8); max-width: 700px; line-height: 1.6; }
-        .detail-content { padding: 80px; max-width: 1200px; margin: 0 auto; }
-        .detail-section { margin-bottom: 80px; }
-        .detail-section-title { font-size: 28px; font-weight: 600; margin-bottom: 32px; color: var(--text-primary); position: relative; padding-left: 20px; }
-        .detail-section-title::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 4px; height: 28px; background: var(--primary-gradient); border-radius: 2px; }
-        .video-container { width: 100%; border-radius: 20px; overflow: hidden; box-shadow: var(--shadow); background: #000; aspect-ratio: 16/9; max-height: 675px; position: relative; }
-        .video-container video { width: 100%; height: 100%; object-fit: contain; }
-        .video-overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: opacity 0.4s; }
-        .video-overlay.hidden { opacity: 0; pointer-events: none; }
-        .play-btn { width: 80px; height: 80px; background: rgba(255,255,255,0.2); backdrop-filter: blur(8px); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; color: #fff; transition: all 0.3s ease; }
-        .play-btn:hover { transform: scale(1.1); background: rgba(255,255,255,0.35); }
-        .video-controls { display: flex; align-items: center; gap: 16px; margin-top: 12px; padding: 8px 16px; background: var(--card-background); border-radius: 12px; box-shadow: var(--shadow); }
-        .video-controls button { background: none; border: none; cursor: pointer; font-size: 18px; color: var(--text-primary); padding: 6px; border-radius: 6px; transition: all 0.2s; }
-        .video-controls button:hover { background: #e5e5e5; }
-        .progress-wrap { flex: 1; height: 4px; background: #e5e5e5; border-radius: 2px; cursor: pointer; }
-        .progress-fill { height: 100%; background: var(--primary-gradient); border-radius: 2px; width: 0; }
-        .time-label { font-size: 12px; color: var(--text-secondary); min-width: 80px; text-align: center; }
-        .feature-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
-        .feature-card { background: var(--card-background); border-radius: 16px; padding: 32px; box-shadow: var(--shadow); transition: all 0.3s ease; }
-        .feature-card:hover { transform: translateY(-8px); box-shadow: 0 15px 40px rgba(0,0,0,0.12); }
-        .feature-icon { width: 56px; height: 56px; background: #e5e5e5; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; font-size: 24px; }
-        .feature-title { font-size: 18px; font-weight: 600; margin-bottom: 8px; }
-        .feature-text { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
-        .doc-dl-card { background: var(--card-background); border-radius: 16px; padding: 28px 32px; box-shadow: var(--shadow); display: flex; align-items: center; gap: 20px; }
-        .doc-icon { width: 56px; height: 56px; background: #e5e5e5; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; }
-        .doc-info { flex: 1; }
-        .doc-info h3 { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
-        .doc-info p { font-size: 12px; color: var(--text-muted); }
-        .doc-dl-btn { padding: 10px 20px; background: var(--primary-gradient); color: #fff; text-decoration: none; border-radius: 25px; font-size: 13px; font-weight: 500; transition: all 0.3s; }
-        .doc-dl-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
-        .tech-stack { display: flex; gap: 12px; flex-wrap: wrap; }
-        .tech-item { padding: 12px 24px; background: var(--card-background); border-radius: 30px; font-size: 14px; font-weight: 500; box-shadow: var(--shadow); }
-        @media (max-width: 768px) { .detail-nav { padding: 0 20px; } .detail-hero { padding: 120px 24px 60px; } .detail-hero-title { font-size: 36px; } .detail-content { padding: 40px 24px; } .doc-dl-card { flex-direction: column; align-items: flex-start; } }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        :root {
+            --primary-gradient: linear-gradient(135deg, #1a1a1a 0%, #4a4a4a 100%);
+            --text-primary: #1a1a1a;
+            --text-secondary: #525252;
+            --text-muted: #737373;
+            --background-light: #fafafa;
+            --background-dark: #1a1a1a;
+            --card-background: #ffffff;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        body {
+            width: 100vw;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            background: var(--background-light);
+            overflow-x: hidden;
+            color: var(--text-primary);
+        }
+
+        .detail-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 72px;
+            background: rgba(250, 250, 250, 0.95);
+            backdrop-filter: blur(20px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 60px;
+            z-index: 100;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 10px 20px;
+            border-radius: 30px;
+        }
+
+        .back-btn:hover {
+            color: var(--text-primary);
+            background: #e5e5e5;
+        }
+
+        .back-btn i {
+            font-size: 14px;
+            transition: transform 0.3s ease;
+        }
+
+        .back-btn:hover i {
+            transform: translateX(-4px);
+        }
+
+        .nav-title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .nav-placeholder {
+            width: 120px;
+        }
+
+        .detail-hero {
+            padding: 140px 80px 80px;
+            background: linear-gradient(180deg, var(--background-dark) 0%, var(--background-light) 100%);
+            color: #fff;
+            min-height: 50vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .detail-hero-tags {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .detail-tag {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .detail-hero-title {
+            font-size: 56px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .detail-hero-description {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 700px;
+            line-height: 1.6;
+        }
+
+        .detail-content {
+            padding: 80px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .detail-section {
+            margin-bottom: 80px;
+        }
+
+        .detail-section-title {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 32px;
+            color: var(--text-primary);
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .detail-section-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 28px;
+            background: var(--primary-gradient);
+            border-radius: 2px;
+        }
+
+        .video-container {
+            width: 100%;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            background: #000;
+            aspect-ratio: 16/9;
+            max-height: 675px;
+            position: relative;
+        }
+
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .video-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: opacity 0.4s;
+        }
+
+        .video-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .play-btn {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(8px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+
+        .play-btn:hover {
+            transform: scale(1.1);
+            background: rgba(255, 255, 255, 0.35);
+        }
+
+        .video-controls {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-top: 12px;
+            padding: 8px 16px;
+            background: var(--card-background);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+        }
+
+        .video-controls button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            color: var(--text-primary);
+            padding: 6px;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .video-controls button:hover {
+            background: #e5e5e5;
+        }
+
+        .progress-wrap {
+            flex: 1;
+            height: 4px;
+            background: #e5e5e5;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--primary-gradient);
+            border-radius: 2px;
+            width: 0;
+        }
+
+        .time-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .feature-card {
+            background: var(--card-background);
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            background: #e5e5e5;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .feature-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .feature-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .doc-dl-card {
+            background: var(--card-background);
+            border-radius: 16px;
+            padding: 28px 32px;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .doc-icon {
+            width: 56px;
+            height: 56px;
+            background: #e5e5e5;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .doc-info {
+            flex: 1;
+        }
+
+        .doc-info h3 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .doc-info p {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .doc-dl-btn {
+            padding: 10px 20px;
+            background: var(--primary-gradient);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .doc-dl-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .tech-stack {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .tech-item {
+            padding: 12px 24px;
+            background: var(--card-background);
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 500;
+            box-shadow: var(--shadow);
+        }
+
+        @media (max-width: 768px) {
+            .detail-nav {
+                padding: 0 20px;
+            }
+
+            .detail-hero {
+                padding: 120px 24px 60px;
+            }
+
+            .detail-hero-title {
+                font-size: 36px;
+            }
+
+            .detail-content {
+                padding: 40px 24px;
+            }
+
+            .doc-dl-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
     </style>
 </head>
+
 <body>
-    <nav class="detail-nav"><a href="../works.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i><span>返回作品集</span></a><div class="nav-title">替我去看世界</div><div class="nav-placeholder"></div></nav>
-    <header class="detail-hero"><div class="detail-hero-tags"><span class="detail-tag">设计类型</span><span class="detail-tag">视频剪辑</span><span class="detail-tag">AIGC</span></div><h1 class="detail-hero-title">替我去看世界</h1><p class="detail-hero-description">AIGC叙事短片——"替我活下去的她"。以AI驱动的叙事影像，讲述关于生命、记忆与爱的情感故事。全片由AI生成画面构成，以独特的视觉风格传递深刻的人文情怀。</p></header>
+    <nav class="detail-nav"><a href="../works.html" class="back-btn"><i
+                class="fa-solid fa-arrow-left"></i><span>返回作品集</span></a>
+        <div class="nav-title">替我去看世界</div>
+        <div class="nav-placeholder"></div>
+    </nav>
+    <header class="detail-hero">
+        <div class="detail-hero-tags"><span class="detail-tag">设计类型</span><span class="detail-tag">视频剪辑</span><span
+                class="detail-tag">AIGC</span></div>
+        <h1 class="detail-hero-title">替我去看世界</h1>
+        <p class="detail-hero-description">
+            AIGC叙事短片——"替我活下去的她"。以AI驱动的叙事影像，讲述关于生命、记忆与爱的情感故事。全片由AI生成画面构成，以独特的视觉风格传递深刻的人文情怀。</p>
+    </header>
     <main class="detail-content">
         <section class="detail-section">
             <h2 class="detail-section-title">视频播放</h2>
@@ -66,11 +413,15 @@
                 <video id="main-video" src="../video/go-see-world.mp4" preload="metadata" playsinline>
                     <source src="../video/go-see-world.mp4" type="video/mp4">
                 </video>
-                <div class="video-overlay" id="video-overlay"><div class="play-btn"><i class="fa-solid fa-play"></i></div></div>
+                <div class="video-overlay" id="video-overlay">
+                    <div class="play-btn"><i class="fa-solid fa-play"></i></div>
+                </div>
             </div>
             <div class="video-controls">
                 <button id="btn-play"><i class="fa-solid fa-play"></i></button>
-                <div class="progress-wrap" id="progress-wrap"><div class="progress-fill" id="progress-fill"></div></div>
+                <div class="progress-wrap" id="progress-wrap">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
                 <span class="time-label" id="time-label">00:00 / 00:00</span>
                 <button id="btn-full"><i class="fa-solid fa-expand"></i></button>
             </div>
@@ -78,51 +429,74 @@
         <section class="detail-section">
             <h2 class="detail-section-title">创作说明</h2>
             <div class="feature-grid">
-                <div class="feature-card"><div class="feature-icon"><i class="fa-solid fa-heart"></i></div><h3 class="feature-title">情感叙事</h3><p class="feature-text">以"替我活下去的她"为核心叙事线，通过AI生成的影像序列传递关于爱与生命延续的深刻情感，引发观众共鸣。</p></div>
-                <div class="feature-card"><div class="feature-icon"><i class="fa-solid fa-eye"></i></div><h3 class="feature-title">视觉风格</h3><p class="feature-text">采用柔和温暖的色调与写意画面，营造出梦幻而真实的视觉氛围，让AI生成的画面依然保有人的温度。</p></div>
-                <div class="feature-card"><div class="feature-icon"><i class="fa-solid fa-pen-fancy"></i></div><h3 class="feature-title">脚本创作</h3><p class="feature-text">精心撰写的叙事脚本（订正稿），从文学角度出发构思情感弧线，再通过AI工具将文字转化为影像语言。</p></div>
-                <div class="feature-card"><div class="feature-icon"><i class="fa-solid fa-images"></i></div><h3 class="feature-title">AI影像生成</h3><p class="feature-text">使用先进的AI图像与视频生成技术，将叙事脚本逐帧转化为高质量的动态影像，实现高效的创意落地。</p></div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-heart"></i></div>
+                    <h3 class="feature-title">情感叙事</h3>
+                    <p class="feature-text">以"替我活下去的她"为核心叙事线，通过AI生成的影像序列传递关于爱与生命延续的深刻情感，引发观众共鸣。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-eye"></i></div>
+                    <h3 class="feature-title">视觉风格</h3>
+                    <p class="feature-text">采用柔和温暖的色调与写意画面，营造出梦幻而真实的视觉氛围，让AI生成的画面依然保有人的温度。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-pen-fancy"></i></div>
+                    <h3 class="feature-title">脚本创作</h3>
+                    <p class="feature-text">精心撰写的叙事脚本（订正稿），从文学角度出发构思情感弧线，再通过AI工具将文字转化为影像语言。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-images"></i></div>
+                    <h3 class="feature-title">AI影像生成</h3>
+                    <p class="feature-text">使用先进的AI图像与视频生成技术，将叙事脚本逐帧转化为高质量的动态影像，实现高效的创意落地。</p>
+                </div>
             </div>
         </section>
         <section class="detail-section">
             <h2 class="detail-section-title">剧本原稿</h2>
             <div class="doc-dl-card">
                 <div class="doc-icon"><i class="fa-solid fa-file-word"></i></div>
-                <div class="doc-info"><h3>替我活下去的她_订正稿.docx</h3><p>叙事脚本 · 原始创作文档</p></div>
-                <a href="../img/live-for-me-script.docx" target="_blank" class="doc-dl-btn"><i class="fa-solid fa-download"></i> 查看文档</a>
+                <div class="doc-info">
+                    <h3>替我活下去的她_订正稿.docx</h3>
+                    <p>叙事脚本 · 原始创作文档</p>
+                </div>
+                <a href="../img/live-for-me-script.docx" target="_blank" class="doc-dl-btn"><i
+                        class="fa-solid fa-download"></i> 查看文档</a>
             </div>
         </section>
         <section class="detail-section">
             <h2 class="detail-section-title">技术栈</h2>
-            <div class="tech-stack"><span class="tech-item">AI Video Gen</span><span class="tech-item">Stable Diffusion</span><span class="tech-item">叙事脚本</span><span class="tech-item">风格化渲染</span><span class="tech-item">视频后期</span></div>
+            <div class="tech-stack"><span class="tech-item">AI Video Gen</span><span class="tech-item">Stable
+                    Diffusion</span><span class="tech-item">叙事脚本</span><span class="tech-item">风格化渲染</span><span
+                    class="tech-item">视频后期</span></div>
         </section>
     </main>
     <script>
-        document.addEventListener('DOMContentLoaded',()=>{
-            anime.timeline().add({targets:'.detail-hero-tags .detail-tag',opacity:[0,1],translateY:[20,0],delay:anime.stagger(100),duration:600,easing:'easeOutQuad'}).add({targets:'.detail-hero-title',opacity:[0,1],translateY:[40,0],duration:800,easing:'easeOutQuad'},'-=400').add({targets:'.detail-hero-description',opacity:[0,1],translateY:[30,0],duration:800,easing:'easeOutQuad'},'-=600');
+        document.addEventListener('DOMContentLoaded', () => {
+            anime.timeline().add({ targets: '.detail-hero-tags .detail-tag', opacity: [0, 1], translateY: [20, 0], delay: anime.stagger(100), duration: 600, easing: 'easeOutQuad' }).add({ targets: '.detail-hero-title', opacity: [0, 1], translateY: [40, 0], duration: 800, easing: 'easeOutQuad' }, '-=400').add({ targets: '.detail-hero-description', opacity: [0, 1], translateY: [30, 0], duration: 800, easing: 'easeOutQuad' }, '-=600');
 
-            const video=document.getElementById('main-video'),overlay=document.getElementById('video-overlay');
-            const playBtn=document.getElementById('btn-play'),progressWrap=document.getElementById('progress-wrap');
-            const progressFill=document.getElementById('progress-fill'),timeLabel=document.getElementById('time-label');
+            const video = document.getElementById('main-video'), overlay = document.getElementById('video-overlay');
+            const playBtn = document.getElementById('btn-play'), progressWrap = document.getElementById('progress-wrap');
+            const progressFill = document.getElementById('progress-fill'), timeLabel = document.getElementById('time-label');
 
-            function fmt(t){const m=Math.floor(t/60),s=Math.floor(t%60);return String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');}
-            function togglePlay(){if(video.paused){video.play().catch(()=>{});}else{video.pause();}}
+            function fmt(t) { const m = Math.floor(t / 60), s = Math.floor(t % 60); return String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0'); }
+            function togglePlay() { if (video.paused) { video.play().catch(() => { }); } else { video.pause(); } }
 
-            video.addEventListener('loadedmetadata',()=>{timeLabel.textContent='00:00 / '+fmt(video.duration);});
+            video.addEventListener('loadedmetadata', () => { timeLabel.textContent = '00:00 / ' + fmt(video.duration); });
 
-            video.addEventListener('timeupdate',()=>{if(video.duration){progressFill.style.width=(video.currentTime/video.duration*100)+'%';timeLabel.textContent=fmt(video.currentTime)+' / '+fmt(video.duration);}});
+            video.addEventListener('timeupdate', () => { if (video.duration) { progressFill.style.width = (video.currentTime / video.duration * 100) + '%'; timeLabel.textContent = fmt(video.currentTime) + ' / ' + fmt(video.duration); } });
 
-            video.addEventListener('play',()=>{overlay.classList.add('hidden');playBtn.innerHTML='<i class="fa-solid fa-pause"></i>';});
-            video.addEventListener('pause',()=>{overlay.classList.remove('hidden');playBtn.innerHTML='<i class="fa-solid fa-play"></i>';});
-            video.addEventListener('ended',()=>{overlay.classList.remove('hidden');playBtn.innerHTML='<i class="fa-solid fa-play"></i>';});
+            video.addEventListener('play', () => { overlay.classList.add('hidden'); playBtn.innerHTML = '<i class="fa-solid fa-pause"></i>'; });
+            video.addEventListener('pause', () => { overlay.classList.remove('hidden'); playBtn.innerHTML = '<i class="fa-solid fa-play"></i>'; });
+            video.addEventListener('ended', () => { overlay.classList.remove('hidden'); playBtn.innerHTML = '<i class="fa-solid fa-play"></i>'; });
 
-            overlay.addEventListener('click',(e)=>{e.stopPropagation();togglePlay();});
-            playBtn.addEventListener('click',(e)=>{e.stopPropagation();togglePlay();});
+            overlay.addEventListener('click', (e) => { e.stopPropagation(); togglePlay(); });
+            playBtn.addEventListener('click', (e) => { e.stopPropagation(); togglePlay(); });
 
-            progressWrap.addEventListener('click',e=>{const r=progressWrap.getBoundingClientRect();video.currentTime=(e.clientX-r.left)/r.width*video.duration;});
+            progressWrap.addEventListener('click', e => { const r = progressWrap.getBoundingClientRect(); video.currentTime = (e.clientX - r.left) / r.width * video.duration; });
 
-            document.getElementById('btn-full').addEventListener('click',()=>{if(document.fullscreenElement){document.exitFullscreen();}else{document.getElementById('video-container').requestFullscreen();}});
+            document.getElementById('btn-full').addEventListener('click', () => { if (document.fullscreenElement) { document.exitFullscreen(); } else { document.getElementById('video-container').requestFullscreen(); } });
         });
     </script>
 </body>
+
 </html>
