@@ -10,7 +10,7 @@
     border: 1.5px solid rgba(115, 115, 115, 0.5);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2), 0 0 0 0 rgba(0, 0, 0, 0.3);
     cursor: pointer;
-    z-index: 9990;
+    z-index: 9945;
     display: flex;
     align-items: center;
     justify-content: center;
