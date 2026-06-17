@@ -1,8 +1,8 @@
 /* ========== AI 悬浮球与对话面板样式 ========== */
 .ai-floating-ball {
     position: fixed;
-    bottom: 30px;
-    right: 30px;
+    bottom: 45px;
+    right: 45px;
     width: 52px;
     height: 52px;
     border-radius: 50%;
@@ -404,6 +404,76 @@
     background: #ef4444;
     border-color: #ef4444;
     color: #ffffff;
+}
+
+/* API Key 设置面板 */
+.ai-setup-panel {
+    padding: 10px 0;
+    text-align: center;
+}
+
+.ai-setup-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+}
+
+.ai-setup-desc {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-bottom: 14px;
+    line-height: 1.5;
+}
+
+.ai-setup-input {
+    display: block;
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 10px;
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    font-size: 13px;
+    background: #fafafa;
+    color: var(--text-primary);
+    outline: none;
+    transition: border-color 0.2s ease;
+    box-sizing: border-box;
+}
+
+.ai-setup-input:focus {
+    border-color: var(--border-color);
+    background: #ffffff;
+}
+
+.ai-setup-btn {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #1a1a1a 0%, #3a3a3a 100%);
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-bottom: 8px;
+    transition: opacity 0.2s ease;
+}
+
+.ai-setup-btn:hover {
+    opacity: 0.9;
+}
+
+.ai-setup-cancel {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.ai-setup-cancel:hover {
+    color: var(--text-primary);
 }
 
 /* 响应式 */

@@ -39,6 +39,5 @@ logs/
 .parcel-cache/
 .eslintcache
 
-# AI config (contains API key + system prompt)
+# AI config (contains API key - DO NOT commit)
 ai-config.js
-ai-prompt.js
