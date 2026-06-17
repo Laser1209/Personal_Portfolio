@@ -38,3 +38,7 @@ logs/
 .cache/
 .parcel-cache/
 .eslintcache
+
+# AI config (contains API key + system prompt)
+ai-config.js
+ai-prompt.js

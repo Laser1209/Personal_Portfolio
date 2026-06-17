@@ -87,7 +87,7 @@ const WorksData = {
                         title: "QQ音乐",
                         thumbnail: "img/qq-music-preview.svg",
                         tags: ["设计类型", "页面设计"],
-                        description: "仿QQ音乐PC端播放器界面",
+                        description: "仿QQ音乐PC端完整首页，包含头部导航、搜索框、轮播歌单推荐、新歌首发、排行榜、MV、底部导航等完整功能模块",
                         detailPage: "detail/page-1.html",
                         externalLink: "program/qq-music.html"
                     },
@@ -200,7 +200,7 @@ const WorksData = {
             {
                 id: "game-3",
                 title: "扫雷",
-                thumbnail: "img/minesweeper-preview.jpg",
+                thumbnail: "img/minesweeper-preview.svg",
                 tags: ["基础逻辑书写"],
                 description: "经典扫雷游戏实现",
                 detailPage: "detail/game-3.html",
@@ -218,7 +218,7 @@ const WorksData = {
             {
                 id: "game-5",
                 title: "跳一跳",
-                thumbnail: "img/threeKills-preview.jpg",
+                thumbnail: "img/threeKills-preview.svg",
                 tags: ["基础逻辑书写"],
                 description: "跳一跳游戏实现",
                 detailPage: "detail/game-5.html",

@@ -170,12 +170,31 @@
             margin-top: 40px;
         }
         .external-link-btn:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); }
+        .mockup-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 32px; }
+        .mockup-card {
+            background: var(--card-background);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+        .mockup-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-hover); }
+        .mockup-card img { width: 100%; height: auto; display: block; }
+        .mockup-label {
+            padding: 16px 24px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-align: center;
+            letter-spacing: 1px;
+        }
         @media (max-width: 768px) {
             .detail-nav { padding: 0 20px; }
             .detail-hero { padding: 120px 24px 60px; }
             .detail-hero-title { font-size: 36px; }
             .detail-content { padding: 40px 24px; }
             .iframe-container iframe { height: 500px; }
+            .mockup-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -196,7 +215,7 @@
             <span class="detail-tag">页面设计</span>
         </div>
         <h1 class="detail-hero-title">QQ音乐</h1>
-        <p class="detail-hero-description">仿QQ音乐PC端播放器界面，使用原生HTML、CSS和JavaScript实现，包含播放控制、歌曲列表、歌词同步等核心功能。</p>
+        <p class="detail-hero-description">仿QQ音乐PC端完整首页（Desktop + Mobile），从零手写原生HTML、CSS和JavaScript，100%还原头部导航栏、搜索框交互、轮播歌单推荐、新歌首发列表、排行榜专区、MV展示区、底部导航与版权信息等完整功能模块，支持响应式布局。</p>
     </header>
 
     <main class="detail-content">
@@ -208,27 +227,51 @@
         </section>
 
         <section class="detail-section">
-            <h2 class="detail-section-title">项目特点</h2>
+            <h2 class="detail-section-title">功能特点</h2>
             <div class="feature-grid">
                 <div class="feature-card">
-                    <div class="feature-icon"><i class="fa-solid fa-play"></i></div>
-                    <h3 class="feature-title">播放控制</h3>
-                    <p class="feature-text">完整的播放控制功能，包括播放、暂停、上一首、下一首、音量控制等。</p>
+                    <div class="feature-icon"><i class="fa-solid fa-compass"></i></div>
+                    <h3 class="feature-title">完整导航体系</h3>
+                    <p class="feature-text">顶部主导航栏（音乐馆/我的音乐/客户端/VIP）+ 二级分类导航（首页/歌手/新碟/排行榜/MV等），含悬浮下载弹窗交互。</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon"><i class="fa-solid fa-list"></i></div>
-                    <h3 class="feature-title">歌曲列表</h3>
-                    <p class="feature-text">可滚动的歌曲列表，支持点击切换当前播放歌曲，高亮显示正在播放的曲目。</p>
+                    <div class="feature-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+                    <h3 class="feature-title">搜索交互</h3>
+                    <p class="feature-text">居中搜索输入框 + 搜索按钮，还原QQ音乐官方的搜索栏视觉与交互细节。</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon"><i class="fa-solid fa-music"></i></div>
-                    <h3 class="feature-title">歌词同步</h3>
-                    <p class="feature-text">歌词与播放进度同步显示，高亮当前播放行，提供沉浸式的音乐体验。</p>
+                    <div class="feature-icon"><i class="fa-solid fa-compact-disc"></i></div>
+                    <h3 class="feature-title">歌单推荐轮播</h3>
+                    <p class="feature-text">5栏歌单卡片布局，含封面悬停播放效果、播放量展示、轮播切换指示器与左右翻页按钮。</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon"><i class="fa-solid fa-desktop"></i></div>
-                    <h3 class="feature-title">响应式设计</h3>
-                    <p class="feature-text">适配不同屏幕尺寸，在桌面端和移动端均有良好的显示效果。</p>
+                    <div class="feature-icon"><i class="fa-solid fa-fire"></i></div>
+                    <h3 class="feature-title">新歌首发</h3>
+                    <p class="feature-text">分类Tab切换（最新/内地/港台/欧美/韩国/日本），歌曲卡片含专辑封面、悬停播放覆盖层、歌名与歌手信息。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-crown"></i></div>
+                    <h3 class="feature-title">排行榜专区</h3>
+                    <p class="feature-text">榜单卡片网格展示，含榜单封面图与榜单名称，还原QQ音乐排行榜模块视觉。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-mobile-screen"></i></div>
+                    <h3 class="feature-title">响应式双端</h3>
+                    <p class="feature-text">适配PC端与移动端双布局，Desktop完整首页 + Mobile底部导航精简版，不同屏幕尺寸独立体验。</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="detail-section">
+            <h2 class="detail-section-title">效果图展示</h2>
+            <div class="mockup-grid">
+                <div class="mockup-card">
+                    <img src="../img/效果图—desktop.jpg" alt="QQ音乐 Desktop 效果图">
+                    <div class="mockup-label">Desktop 桌面端</div>
+                </div>
+                <div class="mockup-card">
+                    <img src="../img/效果图—mobile.jpg" alt="QQ音乐 Mobile 效果图">
+                    <div class="mockup-label">Mobile 移动端</div>
                 </div>
             </div>
         </section>
@@ -238,8 +281,10 @@
             <div class="tech-stack">
                 <span class="tech-item">HTML5</span>
                 <span class="tech-item">CSS3</span>
-                <span class="tech-item">JavaScript</span>
-                <span class="tech-item">Font Awesome</span>
+                <span class="tech-item">JavaScript (ES6+)</span>
+                <span class="tech-item">响应式布局</span>
+                <span class="tech-item">iconfont 图标库</span>
+                <span class="tech-item">Font Awesome 5</span>
             </div>
         </section>
 
