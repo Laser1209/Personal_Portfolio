@@ -406,74 +406,52 @@
     color: #ffffff;
 }
 
-/* API Key 设置面板 */
-.ai-setup-panel {
-    padding: 10px 0;
+/* 未配置提示 */
+.ai-not-configured {
+    padding: 30px 16px;
     text-align: center;
 }
 
-.ai-setup-title {
-    font-size: 16px;
+.ai-nc-icon {
+    font-size: 32px;
+    margin-bottom: 10px;
+    opacity: 0.4;
+}
+
+.ai-nc-title {
+    font-size: 15px;
     font-weight: 600;
     color: var(--text-primary);
-    margin-bottom: 6px;
-}
-
-.ai-setup-desc {
-    font-size: 12px;
-    color: var(--text-secondary);
-    margin-bottom: 14px;
-    line-height: 1.5;
-}
-
-.ai-setup-input {
-    display: block;
-    width: 100%;
-    padding: 10px 12px;
     margin-bottom: 10px;
-    border: 1px solid var(--border-light);
-    border-radius: 8px;
-    font-size: 13px;
-    background: #fafafa;
-    color: var(--text-primary);
-    outline: none;
-    transition: border-color 0.2s ease;
-    box-sizing: border-box;
 }
 
-.ai-setup-input:focus {
-    border-color: var(--border-color);
-    background: #ffffff;
-}
-
-.ai-setup-btn {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    border-radius: 8px;
-    background: linear-gradient(135deg, #1a1a1a 0%, #3a3a3a 100%);
-    color: #ffffff;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    margin-bottom: 8px;
-    transition: opacity 0.2s ease;
-}
-
-.ai-setup-btn:hover {
-    opacity: 0.9;
-}
-
-.ai-setup-cancel {
-    background: none;
-    border: none;
-    color: var(--text-secondary);
+.ai-nc-desc {
     font-size: 12px;
-    cursor: pointer;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 8px;
 }
 
-.ai-setup-cancel:hover {
-    color: var(--text-primary);
+.ai-nc-desc code {
+    background: #f0f0f0;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-family: 'Consolas', 'Monaco', monospace;
+}
+
+.ai-nc-local {
+    font-size: 11px;
+    color: var(--text-tertiary, #999);
+    line-height: 1.6;
+}
+
+.ai-nc-local code {
+    background: #f0f0f0;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-family: 'Consolas', 'Monaco', monospace;
 }
 
 /* 响应式 */
