@@ -88,8 +88,7 @@ const WorksData = {
                         thumbnail: "img/qq-music-preview.svg",
                         tags: ["设计类型", "页面设计"],
                         description: "仿QQ音乐PC端完整首页，包含头部导航、搜索框、轮播歌单推荐、新歌首发、排行榜、MV、底部导航等完整功能模块",
-                        detailPage: "detail/page-1.html",
-                        externalLink: "program/qq-music.html"
+                        detailPage: "detail/page-1.html"
                     },
                     {
                         id: "page-2",
