@@ -33,6 +33,29 @@
 
     if (!floatingBall || !chatPanel) return;
 
+    // ===== 时间格式化（访问者本地时区） =====
+    function formatTime(timestamp) {
+        var d = new Date(timestamp);
+        var now = new Date();
+        var diffMs = now - d;
+        var diffMin = Math.floor(diffMs / 60000);
+        var h = d.getHours().toString().padStart(2, '0');
+        var m = d.getMinutes().toString().padStart(2, '0');
+
+        // 1分钟内
+        if (diffMin < 1) return '刚刚';
+        // 1小时内
+        if (diffMin < 60) return diffMin + '\u5206\u949f\u524d';
+        // 今天
+        if (d.toDateString() === now.toDateString()) return h + ':' + m;
+        // 昨天
+        var yesterday = new Date(now);
+        yesterday.setDate(yesterday.getDate() - 1);
+        if (d.toDateString() === yesterday.toDateString()) return '\u6628\u5929 ' + h + ':' + m;
+        // 更早
+        return (d.getMonth() + 1) + '/' + d.getDate() + ' ' + h + ':' + m;
+    }
+
     // ===== 状态 =====
     var messages = [];
     var isStreaming = false;
@@ -70,15 +93,24 @@
         }
         if (welcomeEl) welcomeEl.style.display = 'none';
         messages.forEach(function(msg) {
-            appendMessageBubble(msg.role, msg.content);
+            appendMessageBubble(msg.role, msg.content, msg.timestamp);
         });
         scrollToBottom();
     }
 
-    function appendMessageBubble(role, content) {
+    function appendMessageBubble(role, content, timestamp) {
         var div = document.createElement('div');
         div.className = 'ai-message ai-message-' + (role === 'user' ? 'user' : 'assistant');
         div.textContent = content;
+
+        if (timestamp) {
+            var timeEl = document.createElement('time');
+            timeEl.className = 'ai-message-time';
+            timeEl.textContent = formatTime(timestamp);
+            timeEl.dateTime = new Date(timestamp).toISOString();
+            div.appendChild(timeEl);
+        }
+
         chatMessages.appendChild(div);
         return div;
     }
@@ -172,10 +204,11 @@
         if (!userContent || !userContent.trim()) return;
 
         var trimmed = userContent.trim();
+        var now = Date.now();
 
-        messages.push({ role: 'user', content: trimmed });
+        messages.push({ role: 'user', content: trimmed, timestamp: now });
         if (welcomeEl) welcomeEl.style.display = 'none';
-        appendMessageBubble('user', trimmed);
+        appendMessageBubble('user', trimmed, now);
         saveMessages();
         scrollToBottom();
 
@@ -249,12 +282,19 @@
             }
 
             if (fullContent) {
-                messages.push({ role: 'assistant', content: fullContent });
+                var responseTime = Date.now();
+                messages.push({ role: 'assistant', content: fullContent, timestamp: responseTime });
+                // 给流式气泡补上时间戳
+                var timeEl = document.createElement('time');
+                timeEl.className = 'ai-message-time';
+                timeEl.textContent = formatTime(responseTime);
+                timeEl.dateTime = new Date(responseTime).toISOString();
+                streamingBubble.appendChild(timeEl);
                 saveMessages();
             } else {
                 streamingBubble.remove();
-                messages.push({ role: 'assistant', content: '\uff08\u56de\u590d\u5185\u5bb9\u4e3a\u7a7a\uff0c\u8bf7\u7a0d\u540e\u91cd\u8bd5\uff09' });
-                appendMessageBubble('assistant', '\uff08\u56de\u590d\u5185\u5bb9\u4e3a\u7a7a\uff0c\u8bf7\u7a0d\u540e\u91cd\u8bd5\uff09');
+                messages.push({ role: 'assistant', content: '\uff08\u56de\u590d\u5185\u5bb9\u4e3a\u7a7a\uff0c\u8bf7\u7a0d\u540e\u91cd\u8bd5\uff09', timestamp: Date.now() });
+                appendMessageBubble('assistant', '\uff08\u56de\u590d\u5185\u5bb9\u4e3a\u7a7a\uff0c\u8bf7\u7a0d\u540e\u91cd\u8bd5\uff09', Date.now());
                 saveMessages();
             }
 
