@@ -51,63 +51,10 @@
             position: relative;
             color: var(--text-primary);
             line-height: 1.2;
-            cursor: none;
-        }
-
-        /* 自定义鼠标指针基础样式 */
-        .custom-cursor {
-            position: fixed;
-            width: 2.2vw;
-            height: 2.2vw;
-            border: 2px solid #000000;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9950;
-            transition: transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.15s ease, background 0.2s ease, border-color 0.2s ease;
-            mix-blend-mode: difference;
-            background: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.3);
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .custom-cursor::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 6px;
-            height: 6px;
-            background: #000000;
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            mix-blend-mode: difference;
-            box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
-        }
-
-        /* 鼠标悬停在可交互元素上的样式 */
-        .custom-cursor.hover {
-            transform: scale(2);
-            border-color: #000000;
-            background: rgba(0, 0, 0, 0.1);
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2), inset 0 0 10px rgba(255, 255, 255, 0.5);
-        }
-
-        .custom-cursor.hover::after {
-            transform: translate(-50%, -50%) scale(1.5);
-        }
-
-        @media (max-width: 768px) {
-            body {
-                cursor: auto;
-            }
-
-            .custom-cursor {
-                display: none;
-            }
         }
 
     </style>
+    <link rel="stylesheet" href="cursor.css">
     <link rel="stylesheet" href="ai-chat.css">
 
 </head>
@@ -857,60 +804,8 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
     <script src="script.js"></script>
+    <script src="cursor.js"></script>
     <script>
-        // 初始化自定义鼠标指针
-        (function () {
-            const cursor = document.querySelector('.custom-cursor');
-            if (!cursor) return;
-
-            const hoverSelectors = 'a, button, .work-item, .custom-hover, .qr-img, .qrcode_placeholder, .myself, .work_placeholder, .work_info, .work_item, .project_back_btn, .art_generate_btn, .todo_add_btn, .ai-floating-ball, .ai-chat-btn, .ai-chat-send, .ai-chat-suggestion, .ai-clear-confirm button';
-            const hoverElements = document.querySelectorAll(hoverSelectors);
-
-            let mouseX = 0, mouseY = 0;
-            let cursorX = 0, cursorY = 0;
-            let isHovering = false;
-
-            document.addEventListener('mousemove', (e) => {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-            });
-
-            function animateCursor() {
-                const easing = isHovering ? 0.18 : 0.12;
-
-                cursorX += (mouseX - 10 - cursorX) * easing;
-                cursorY += (mouseY - 10 - cursorY) * easing;
-
-                cursor.style.left = cursorX + 'px';
-                cursor.style.top = cursorY + 'px';
-
-                requestAnimationFrame(animateCursor);
-            }
-            animateCursor();
-
-            hoverElements.forEach(el => {
-                el.addEventListener('mouseenter', () => {
-                    isHovering = true;
-                    cursor.classList.add('hover');
-                });
-                el.addEventListener('mouseleave', () => {
-                    isHovering = false;
-                    cursor.classList.remove('hover');
-                });
-            });
-
-            document.addEventListener('mouseover', (e) => {
-                if (e.target.matches(hoverSelectors)) {
-                    cursor.classList.add('hover');
-                }
-            });
-            document.addEventListener('mouseout', (e) => {
-                if (e.target.matches(hoverSelectors)) {
-                    cursor.classList.remove('hover');
-                }
-            });
-        })();
-
         // 关闭作品详情
         function closeWorkDetail() {
             const detailOverlay = document.getElementById('work-detail-overlay');

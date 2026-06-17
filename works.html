@@ -44,36 +44,6 @@
             overflow: hidden;
             position: relative;
             color: var(--text-primary);
-            cursor: none;
-        }
-
-        .custom-cursor {
-            position: fixed;
-            width: 2vw;
-            height: 2vw;
-            border: 1.2px solid #ffffff;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            transition: transform 0.3s ease, opacity 0.2s ease;
-            mix-blend-mode: difference;
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .custom-cursor.hover {
-            transform: scale(2);
-            background: var(--primary-gradient);
-            border-color: transparent;
-        }
-
-        @media (max-width: 768px) {
-            body {
-                cursor: auto;
-            }
-
-            .custom-cursor {
-                display: none;
-            }
         }
 
         .works-container {
@@ -761,6 +731,7 @@
             .search-tag-btn { padding: 6px 12px; font-size: 12px; }
         }
     </style>
+    <link rel="stylesheet" href="cursor.css">
 </head>
 
 <body>
@@ -938,40 +909,15 @@
     </div>
 
     <script src="works-data.js"></script>
+    <script src="cursor.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            initCustomCursor();
             initPageAnimations();
             initCategoryNavigation();
             initHorizontalScroll();
             loadWorksData();
             initSearchSystem();
         });
-
-        function initCustomCursor() {
-            const cursor = document.querySelector('.custom-cursor');
-            let mouseX = 0, mouseY = 0;
-            let cursorX = 0, cursorY = 0;
-
-            document.addEventListener('mousemove', (e) => {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-            });
-
-            function animateCursor() {
-                cursorX += (mouseX - cursorX) * 0.15;
-                cursorY += (mouseY - cursorY) * 0.15;
-                cursor.style.left = cursorX + 'px';
-                cursor.style.top = cursorY + 'px';
-                requestAnimationFrame(animateCursor);
-            }
-            animateCursor();
-
-            document.querySelectorAll('a, button, .work-card, .works-nav-link').forEach(el => {
-                el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-                el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-            });
-        }
 
         function initPageAnimations() {
             anime.timeline()

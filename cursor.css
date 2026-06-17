@@ -1,0 +1,59 @@
+/* ========== 自定义鼠标指针样式（全站统一） ========== */
+body {
+    cursor: none;
+}
+
+.custom-cursor {
+    position: fixed;
+    width: 2.2vw;
+    height: 2.2vw;
+    border: 2px solid #000000;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transform-origin: center center;
+    transition: transform 0.18s ease, opacity 0.15s ease, background 0.2s ease, border-color 0.2s ease;
+    mix-blend-mode: difference;
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.3);
+    opacity: 1;
+    visibility: visible;
+}
+
+.custom-cursor::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 6px;
+    height: 6px;
+    background: #000000;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    mix-blend-mode: difference;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+}
+
+/* 鼠标悬停在可交互元素上 */
+.custom-cursor.hover {
+    transform: translate(-50%, -50%) scale(2);
+    border-color: #000000;
+    background: rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2), inset 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.custom-cursor.hover::after {
+    transform: translate(-50%, -50%) scale(1.5);
+}
+
+/* 移动端隐藏自定义光标 */
+@media (max-width: 768px) {
+    body {
+        cursor: auto;
+    }
+
+    .custom-cursor {
+        display: none;
+    }
+}
