@@ -290,6 +290,7 @@
                 timeEl.textContent = formatTime(responseTime);
                 timeEl.dateTime = new Date(responseTime).toISOString();
                 streamingBubble.appendChild(timeEl);
+                scrollToBottom();
                 saveMessages();
             } else {
                 streamingBubble.remove();
