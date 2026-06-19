@@ -5,6 +5,31 @@ const WorksData = {
             posterDesign: {
                 title: "海报设计",
                 works: [
+                    
+                    {
+                        id: "poster-6",
+                        title: "以手造物",
+                        thumbnail: "img/以手造物.png",
+                        tags: ["设计类型", "海报设计"],
+                        description: "手工艺主题视觉设计",
+                        detailPage: "detail/poster-6.html"
+                    },
+                    {
+                        id: "poster-7",
+                        title: "以手造物 以文传心",
+                        thumbnail: "img/以手造物 以文传心.png",
+                        tags: ["设计类型", "海报设计"],
+                        description: "文创主题海报设计",
+                        detailPage: "detail/poster-7.html"
+                    },
+                    {
+                        id: "poster-8",
+                        title: "墨缘音乐协会",
+                        thumbnail: "img/墨缘音乐协会-KT板.png",
+                        tags: ["设计类型", "海报设计"],
+                        description: "音乐协会活动展板设计",
+                        detailPage: "detail/poster-8.html"
+                    },
                     {
                         id: "poster-1",
                         title: "Minimalist CC Brand Website",
@@ -44,30 +69,6 @@ const WorksData = {
                         tags: ["设计类型", "海报设计"],
                         description: "新中式风格海报设计",
                         detailPage: "detail/poster-5.html"
-                    },
-                    {
-                        id: "poster-6",
-                        title: "以手造物",
-                        thumbnail: "img/以手造物.png",
-                        tags: ["设计类型", "海报设计"],
-                        description: "手工艺主题视觉设计",
-                        detailPage: "detail/poster-6.html"
-                    },
-                    {
-                        id: "poster-7",
-                        title: "以手造物 以文传心",
-                        thumbnail: "img/以手造物 以文传心.png",
-                        tags: ["设计类型", "海报设计"],
-                        description: "文创主题海报设计",
-                        detailPage: "detail/poster-7.html"
-                    },
-                    {
-                        id: "poster-8",
-                        title: "墨缘音乐协会",
-                        thumbnail: "img/墨缘音乐协会-KT板.png",
-                        tags: ["设计类型", "海报设计"],
-                        description: "音乐协会活动展板设计",
-                        detailPage: "detail/poster-8.html"
                     },
                     {
                         id: "poster-9",

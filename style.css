@@ -327,6 +327,41 @@
     color: #1a1a1a;
 }
 
+/* LOGO图片响应式布局 */
+.logo-img {
+    width: 2vw;
+    min-width: 24px;
+    max-width: 48px;
+    height: auto;
+    aspect-ratio: auto;
+    object-fit: contain;
+    transition: width 0.3s ease, transform 0.3s ease;
+    display: block;
+}
+
+/* 极端小屏幕适配 (<320px) */
+@media screen and (max-width: 320px) {
+    .logo-img {
+        width: 24px;
+        min-width: 20px;
+    }
+}
+
+/* 极端大屏幕适配 (>1920px) */
+@media screen and (min-width: 1921px) {
+    .logo-img {
+        width: 48px;
+        max-width: 56px;
+    }
+}
+
+/* 中等屏幕微调 */
+@media screen and (min-width: 768px) and (max-width: 1200px) {
+    .logo-img {
+        width: 2.5vw;
+    }
+}
+
 .loading_text_container {
     display: flex;
     flex-direction: column;
@@ -2471,6 +2506,11 @@ a-waves svg path {
 }
 
 @media (max-width: 480px) {
+    .logo-img {
+        width: 28px;
+        min-width: 24px;
+    }
+
     .navbar_middle a {
         font-size: 0.75rem;
         letter-spacing: 0.08em;
